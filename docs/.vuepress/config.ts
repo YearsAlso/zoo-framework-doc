@@ -16,7 +16,7 @@ export default defineUserConfig({
         sidebar: {
             '/start/': [
                 {
-                    text: '快速开始',
+                    text: '🎪 快速开始',
                     collapsible: true,
                     children: [
                         '/start/',
@@ -24,7 +24,7 @@ export default defineUserConfig({
                     ],
                 },
                 {
-                    text: '指南',
+                    text: '📚 指南',
                     collapsible: true,
                     children: [
                         '/guide/structure.md',
@@ -34,10 +34,11 @@ export default defineUserConfig({
             ],
             '/core/': [
                 {
-                    text: '核心概念',
+                    text: '🎪 动物园核心',
                     collapsible: true,
                     children: [
                         '/core/worker.md',
+                        '/core/cage.md',
                         '/core/event.md',
                         '/core/statemachine.md',
                         '/core/fifo.md',
@@ -45,7 +46,7 @@ export default defineUserConfig({
                     ],
                 },
                 {
-                    text: '高级特性',
+                    text: '🔧 高级特性',
                     collapsible: true,
                     children: [
                         '/advanced/aop.md',

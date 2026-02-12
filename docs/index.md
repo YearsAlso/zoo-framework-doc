@@ -3,50 +3,181 @@ layout: home
 
 hero:
   name: "🦁 Zoo Framework"
-  text: "响应式多线程开发框架"
-  tagline: 🚀 简化 Python 多线程编程，提升开发效率
+  text: "动物园多线程框架"
+  tagline: 🎪 把复杂的线程管理变成有趣的动物园！每个 Worker 都是一只动物，Cage（笼子）是它们的家
   image:
     src: https://mxstorage.oss-cn-beijing.aliyuncs.com/oss-accesslog/zf-main-logo.png
     alt: Zoo Framework
   actions:
     - theme: brand
-      text: 🚀 快速开始
+      text: 🎫 入园指南
       link: /start/
     - theme: alt
-      text: 📖 查看文档
+      text: 🗺️ 动物园地图
       link: /core/worker.html
 
 features:
-  - icon: ⚡
-    title: Worker 线程管理
-    details: 声明式线程生命周期管理，自动调度执行，支持循环/单次/事件驱动多种模式
-  - icon: 📬
-    title: 事件驱动架构
-    details: 基于事件的生产者-消费者模式，支持优先级队列和延迟执行
-  - icon: 🔄
-    title: 状态机支持
-    details: 内置状态机引擎，支持复杂业务逻辑的状态转换和持久化
-  - icon: 📊
-    title: FIFO 队列
-    details: 优先级事件队列，支持延迟执行，线程安全
-  - icon: 🔒
-    title: 线程安全
-    details: 内置锁机制和线程安全数据结构，保障并发安全
+  - icon: 🦁
+    title: Worker 动物们
+    details: 每只 Worker 都是动物园里独特的动物，有狮子般凶猛的高优先级任务，也有树懒般悠闲的定时任务
+  - icon: 🏠
+    title: Cage 笼子
+    details: Cage（笼子）是 Worker 的家，统一管理动物们的作息、安全和互相通信，让它们和谐共处
+  - icon: 🎪
+    title: Master 园长
+    details: Master 是动物园园长，负责调度所有动物的工作，确保动物园有序运转
+  - icon: 🍖
+    title: Event 食物
+    details: Event（事件）是动物们的食物，通过 FIFO（饲养员队列）按优先级分发，高优先级的动物先吃
+  - icon: 🗺️
+    title: State 状态图
+    details: 动物们有自己的心情状态图，从饥饿到饱食、从休息到工作，状态机记录它们的生命旅程
   - icon: 🔌
-    title: 插件系统
-    details: 可扩展的插件架构，支持第三方扩展（开发中）
+    title: Plugin 新物种
+    details: 支持引入新物种（插件），让动物园不断丰富，企鹅、长颈鹿...想养什么就养什么
 ---
 
-## 🎯 简介
+## 🎪 动物园理念
 
-**Zoo Framework** 是一款专为 Python 设计的响应式多线程开发框架，旨在解决 Python 项目开发中多线程带来的痛点：
+> **Zoo Framework** 的设计理念来自真实的动物园管理系统：
 
-- ❌ 反复创建 Thread 对象 → ✅ 声明式 Worker 管理
-- ❌ 同步方法阻塞与异步问题 → ✅ 智能调度器
-- ❌ 线程间通信复杂 → ✅ 事件驱动架构
-- ❌ 状态管理困难 → ✅ 内置状态机引擎
+```mermaid
+graph TB
+    subgraph 🎪 Zoo Framework 动物园
+        M[👨‍💼 Master 园长<br/>统筹全局]
+        
+        subgraph 🏠 Cage 笼子区
+            C1[🦁 狮子笼<br/>高优先级 Worker]
+            C2[🐒 猴子笼<br/>普通 Worker]
+            C3[🦥 树懒笼<br/>延迟 Worker]
+        end
+        
+        subgraph 🍖 食堂 FIFO
+            F[📊 饲养员队列<br/>优先级分发]
+        end
+        
+        subgraph 🗺️ 状态中心
+            S[🗺️ 动物状态图<br/>StateMachine]
+        end
+    end
+    
+    M -->|管理| C1
+    M -->|管理| C2
+    M -->|管理| C3
+    F -->|喂食| C1
+    F -->|喂食| C2
+    F -->|喂食| C3
+    C1 -->|更新| S
+    C2 -->|更新| S
+    C3 -->|更新| S
+```
 
-## 📦 安装
+### 🦁 Worker = 动物
+
+每只 **Worker** 都是动物园里独特的动物：
+
+| 🦁 动物 | 📝 Worker 类型 | ⚡ 特点 |
+|---------|---------------|---------|
+| 🦁 狮子 | 高优先级 Worker | 凶猛、优先获得资源 |
+| 🐒 猴子 | 普通 Worker | 灵活、好动、循环执行 |
+| 🦥 树懒 | 延迟 Worker | 慢吞吞、定时执行 |
+| 🦅 老鹰 | 事件 Worker | 敏锐、响应事件 |
+| 🐘 大象 | 状态机 Worker | 稳重、管理复杂状态 |
+
+```python
+# 🦁 创建一只狮子 Worker（高优先级）
+from zoo_framework.workers import BaseWorker
+
+class LionWorker(BaseWorker):  # 🦁 狮子
+    def __init__(self):
+        super().__init__({
+            "name": "🦁 LionKing",      # 狮子王
+            "delay_time": 1,             # 每秒巡视一次
+            "priority": 100              # 🔴 最高优先级
+        })
+    
+    def _execute(self):
+        print("🦁 吼！我是森林之王，优先处理重要任务！")
+```
+
+### 🏠 Cage = 笼子
+
+**Cage**（笼子）是动物们的家：
+
+- 🔒 **安全防护** - 防止动物乱跑（线程安全）
+- 🔄 **统一管理** - 管理动物的作息（生命周期）
+- 📢 **互相通信** - 笼子之间的传声筒（事件通信）
+- 📊 **状态监控** - 记录动物的健康状态（监控）
+
+```python
+from zoo_framework.core.aop import Cage
+
+@cage.protect  # 🏠 把 Worker 放进笼子保护
+class ProtectedWorker(BaseWorker):
+    """
+    🐒 受保护的猴子 Worker
+    运行在 Cage（笼子）里，安全又舒适
+    """
+    def _execute(self):
+        print("🐒 我在笼子里安全地玩耍！")
+```
+
+### 🎪 Master = 园长
+
+**Master** 是动物园园长：
+
+```
+👨‍💼 Master 园长的一天：
+├── 🌅 早上 - 检查所有动物（Worker）状态
+├── 🍖 上午 - 分发食物（Event）给饥饿的动物
+├── 🔄 下午 - 巡视笼子（Cage），确保运转正常
+├── 📊 晚上 - 记录动物状态（StateMachine）
+└── 🌙 深夜 - 保存数据，休息
+```
+
+```python
+from zoo_framework.core import Master
+
+# 👨‍💼 创建园长
+master = Master()
+
+# 🎪 开园！所有动物开始工作
+master.run()
+```
+
+### 🍖 Event = 食物
+
+**Event**（事件）是动物们的食物：
+
+```mermaid
+graph LR
+    A[🍖 食物准备] --> B[📊 饲养员队列]
+    B -->|优先级排序| C{🦁 动物饥饿吗？}
+    C -->|Yes| D[🦁 狮子先吃]
+    C -->|Yes| E[🐒 猴子后吃]
+    C -->|Yes| F[🦥 树懒最后吃]
+    
+    style B fill:#fff3e0
+    style D fill:#ffcdd2
+```
+
+```python
+from zoo_framework.fifo.node import EventNode
+
+# 🍖 准备食物（事件）
+food = EventNode(
+    topic="lunch.meat",           # 🥩 午餐肉
+    content={"type": "beef"},      # 牛肉
+    priority=100                   # 🔴 高优先级食物
+)
+
+# 📤 放入饲养员队列
+EventChannelManager.get_channel("zoo").push(food)
+```
+
+## 🚀 快速入园
+
+### 🎫 买票（安装）
 
 ::: code-group
 
@@ -58,192 +189,152 @@ pip install zoo-framework
 uv pip install zoo-framework
 ```
 
-```bash [conda]
-conda install -c conda-forge zoo-framework
-```
-
 :::
 
-## 🚀 快速开始
-
-### 1️⃣ 创建项目
+### 🏗️ 搭建动物园（创建项目）
 
 ```bash
-zfc --create my_project
-cd my_project
+# 🏗️ 创建动物园
+zfc --create my_zoo
+cd my_zoo
+
+# 🦁 添加动物
+zfc --worker lion
+zfc --worker monkey
+zfc --worker sloth
 ```
 
-### 2️⃣ 创建 Worker
-
-```bash
-zfc --worker hello
-```
-
-### 3️⃣ 编写业务代码
+### 🦁 养一只狮子
 
 ```python
-# src/workers/hello_worker.py
+# workers/lion_worker.py
 from zoo_framework.workers import BaseWorker
-from zoo_framework.utils import LogUtils
 
-class HelloWorker(BaseWorker):
+class LionWorker(BaseWorker):  # 🦁 狮子
     def __init__(self):
         super().__init__({
+            "name": "🦁 LionKing",
             "is_loop": True,
-            "delay_time": 2,  # ⏱️ 每 2 秒执行一次
-            "name": "HelloWorker"
+            "delay_time": 2  # ⏱️ 每2秒巡视一次领地
         })
-        self.counter = 0
-
+    
     def _execute(self):
-        self.counter += 1
-        LogUtils.info(f"✨ Hello Zoo Framework! Count: {self.counter}")
+        print("🦁 吼！我是狮子王，正在处理高优先级任务！")
 ```
 
-### 4️⃣ 启动应用
+### 🎪 开园
 
 ```python
-# src/main.py
+# main.py
 from zoo_framework.core import Master
 
 if __name__ == "__main__":
-    master = Master(loop_interval=1)
-    master.run()
+    print("🎪 动物园开园啦！")
+    master = Master()
+    master.run()  # 🎉 所有动物开始工作
 ```
 
-## 🏗️ 架构概览
+输出：
+```
+🎪 动物园开园啦！
+🦁 吼！我是狮子王，正在处理高优先级任务！
+🦁 吼！我是狮子王，正在处理高优先级任务！
+```
+
+## 🗺️ 动物园地图
 
 ```mermaid
-graph TB
-    subgraph 🎯 Master
-        M[Master 调度器]
-    end
-    
-    subgraph 🔄 Waiter 策略
-        S[SimpleWaiter]
-        ST[StableWaiter]
-        SA[SafeWaiter]
-    end
-    
-    subgraph 👷 Workers
-        W1[Worker 1]
-        W2[Worker 2]
-        W3[Worker 3]
-    end
-    
-    subgraph 📬 Event System
-        E[EventNode]
-        C[EventChannel]
-        F[EventFIFO]
-    end
-    
-    M --> S
-    M --> ST
-    M --> SA
-    S --> W1
-    S --> W2
-    S --> W3
-    W1 --> E
-    W2 --> C
-    W3 --> F
+mindmap
+  root((🎪 Zoo Framework))
+    🦁 Worker 动物们
+      🦁 狮子 - 高优先级
+      🐒 猴子 - 普通任务
+      🦥 树懒 - 延迟执行
+      🦅 老鹰 - 事件响应
+      🐘 大象 - 状态管理
+    🏠 Cage 笼子
+      🔒 安全防护
+      🔄 生命周期
+      📢 通信机制
+    👨‍💼 Master 园长
+      🌅 晨检
+      🍖 喂食
+      🔄 巡视
+      📊 记录
+    🍖 Event 食物
+      📊 FIFO 饲养员队列
+      ⭐ 优先级排序
+      ⏰ 延迟投喂
+    🗺️ State 状态图
+      📝 心情变化
+      🔄 状态转换
+      💾 记忆存储
 ```
 
-## 📚 文档导航
+## 📚 游览指南
 
-### 🔰 入门指南
-- [快速开始](/start/) - 5 分钟上手
-- [新建项目](/start/new.html) - 项目创建指南
-- [项目结构](/guide/structure.html) - 目录结构说明
-- [配置说明](/guide/configuration.html) - 配置文件详解
+### 🔰 新手入园
+- [🎫 入园指南](/start/) - 5分钟成为合格饲养员
+- [🏗️ 搭建笼子](/start/new.html) - 创建你的第一个动物园
+- [🗺️ 动物园布局](/guide/structure.html) - 了解动物园结构
 
-### 🧩 核心概念
-- [👷 Worker 工作器](/core/worker.html) - 线程管理核心
-- [📬 事件系统](/core/event.html) - 事件驱动编程
-- [🔄 状态机](/core/statemachine.html) - 状态管理
-- [📊 FIFO 队列](/core/fifo.html) - 优先级队列
-- [🎛️ Waiter 调度器](/core/waiter.html) - 执行策略
+### 🦁 认识动物
+- [🦁 Worker 动物们](/core/worker.html) - 了解各种动物的特点
+- [🍖 Event 食物系统](/core/event.html) - 如何喂养动物
+- [🗺️ 状态图](/core/statemachine.html) - 动物的心情变化
+- [📊 FIFO 饲养员队列](/core/fifo.html) - 食物分发机制
+- [🏠 Cage 笼子](/core/waiter.html) - 动物的家
 
-### 🔧 高级特性
-- [✂️ AOP 切面编程](/advanced/aop.html)
-- [⚡ Reactor 响应器](/advanced/reactor.html)
-- [🔒 Lock 锁机制](/advanced/lock.html)
-- [🔌 Plugin 插件系统](/advanced/plugin.html)
-
-### 📖 API 参考
-- [🔧 核心 API](/api/core.html)
-- [🛠️ 工具类](/api/utils.html)
-- [📋 常量定义](/api/constant.html)
-
-## 💡 核心特性对比
-
-| 特性 | Zoo Framework | 原生 threading | asyncio |
-|------|---------------|----------------|---------|
-| Worker 管理 | ✅ 声明式 | ❌ 手动 | ❌ 手动 |
-| 事件驱动 | ✅ 内置 | ❌ 需自行实现 | ✅ 支持 |
-| 状态机 | ✅ 内置 | ❌ 无 | ❌ 无 |
-| 优先级队列 | ✅ 内置 | ❌ 无 | ❌ 无 |
-| 线程安全 | ✅ 内置 | ⚠️ 需自行处理 | ✅ 单线程 |
-| 学习曲线 | 🟢 平缓 | 🟡 中等 | 🟡 中等 |
+### 🎪 高级驯兽
+- [✂️ AOP 驯兽技巧](/advanced/aop.html)
+- [⚡ Reactor 反应训练](/advanced/reactor.html)
+- [🔒 Cage 安全加固](/advanced/lock.html)
+- [🔌 引入新物种](/advanced/plugin.html)
 
 ## 🌟 为什么选择 Zoo Framework？
 
-### 1. 🚀 提升开发效率
+### 🎪 有趣的编程体验
 
-传统多线程开发：
+传统多线程：枯燥的 Thread 管理  
+**Zoo Framework**：有趣的动物园管理 🎪
+
 ```python
+# ❌ 传统方式：枯燥
 import threading
-import time
-
-def worker():
-    while True:
-        print("Working...")
-        time.sleep(1)
-
-t = threading.Thread(target=worker)
+t = threading.Thread(target=func)
 t.start()
-t.join()
-```
 
-Zoo Framework：
-```python
-from zoo_framework.workers import BaseWorker
-
-class MyWorker(BaseWorker):
-    def __init__(self):
-        super().__init__({
-            "is_loop": True,
-            "delay_time": 1,
-            "name": "MyWorker"
-        })
-    
+# ✅ Zoo Framework：有趣！
+class LionWorker(BaseWorker):  # 🦁 我是狮子！
     def _execute(self):
-        print("Working...")
+        print("吼！")
 ```
 
-### 2. 🔧 丰富的功能生态
+### 🧠 易理解的设计
 
-- 📦 **内置组件** - Worker、Event、StateMachine、FIFO 开箱即用
-- 🔌 **可扩展** - 支持插件机制，易于定制
-- 📊 **可观测** - 内置日志和监控支持
-- 🧪 **易测试** - 模块化设计，便于单元测试
+| 🎪 动物园概念 | 💻 编程概念 |
+|--------------|------------|
+| 🦁 动物 | Worker 工作器 |
+| 🏠 笼子 | Cage 线程管理 |
+| 👨‍💼 园长 | Master 调度器 |
+| 🍖 食物 | Event 事件 |
+| 📊 饲养员 | FIFO 队列 |
+| 🗺️ 状态图 | StateMachine |
 
-### 3. 🛡️ 生产就绪
+### 🛡️ 安全可靠
 
-- ✅ 线程安全设计
-- ✅ 异常自动恢复
-- ✅ 状态持久化
-- ✅ 完善的文档
+- 🔒 Cage 笼子保护线程安全
+- 👨‍💼 Master 园长监控全局
+- 📊 完善的日志和监控
 
-## 🤝 贡献指南
+## 🤝 成为饲养员
 
-欢迎提交 Issue 和 PR！
+欢迎加入 Zoo Framework 动物园！
 
-## 📄 许可证
-
-[Apache License 2.0](https://github.com/YearsAlso/zoo-framework/blob/main/LICENSE)
+[GitHub](https://github.com/YearsAlso/zoo-framework) | [Issues](https://github.com/YearsAlso/zoo-framework/issues) | [文档](https://github.com/YearsAlso/zoo-framework-doc)
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/YearsAlso">YearsAlso</a>
+  🎪 Made with ❤️ by Zoo Framework Team 🦁
 </p>
