@@ -38,420 +38,822 @@ features:
 ---
 
 <style>
-.zoo-concept {
-  margin: 2rem 0;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
-  border-radius: 12px;
+/* 圣杯布局容器 */
+.holy-grail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
-.zoo-concept h2 {
+
+/* 动物园理念区域 - 左侧概念 + 中间架构 + 右侧说明 */
+.zoo-concept-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  margin: 3rem 0;
+}
+
+.zoo-concept-header {
   text-align: center;
+  margin-bottom: 2rem;
+}
+
+.zoo-concept-header h2 {
   color: #2c3e50;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
-.zoo-concept blockquote {
-  text-align: center;
+
+.zoo-concept-header p {
+  color: #6c757d;
   font-size: 1.1rem;
-  color: #555;
-  border-left: none;
-  background: transparent;
 }
-.concept-grid {
+
+/* 圣杯布局主体 */
+.holy-grail-body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 2rem;
+  align-items: start;
 }
-.concept-card {
+
+@media (max-width: 1200px) {
+  .holy-grail-body {
+    grid-template-columns: 1fr;
+  }
+  .left-sidebar, .right-sidebar {
+    order: 2;
+  }
+  .main-content {
+    order: 1;
+  }
+}
+
+/* 左侧边栏 - 核心概念 */
+.left-sidebar {
   background: white;
+  border-radius: 12px;
   padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   border-left: 4px solid #42b883;
 }
-.concept-card h3 {
-  margin-top: 0;
+
+.left-sidebar h3 {
   color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.concept-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.concept-list li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #f0f0f0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.concept-card ul {
-  margin: 0;
-  padding-left: 1.2rem;
+
+.concept-list li:last-child {
+  border-bottom: none;
 }
-.concept-card li {
-  margin: 0.5rem 0;
-  color: #555;
+
+.concept-icon {
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
 }
-.animal-table {
-  width: 100%;
-  margin: 1.5rem 0;
-  border-collapse: collapse;
+
+.concept-text {
+  flex: 1;
 }
-.animal-table th {
-  background: #42b883;
+
+.concept-text strong {
+  display: block;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.concept-text small {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+/* 中间主要内容 - 架构图 */
+.main-content {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.main-content h3 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+/* 右侧边栏 - 工作流程 */
+.right-sidebar {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border-right: 4px solid #667eea;
+}
+
+.right-sidebar h3 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.workflow-step {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.workflow-step:last-child {
+  border-bottom: none;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.step-content strong {
+  display: block;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.step-content small {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+/* 动物类型卡片 */
+.animal-types-section {
+  margin: 3rem 0;
+}
+
+.animal-types-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.animal-types-header h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.animal-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.animal-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 4px solid;
+}
+
+.animal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.animal-card.lion { border-top-color: #e74c3c; }
+.animal-card.monkey { border-top-color: #f39c12; }
+.animal-card.sloth { border-top-color: #27ae60; }
+.animal-card.eagle { border-top-color: #3498db; }
+.animal-card.elephant { border-top-color: #9b59b6; }
+
+.animal-emoji {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.animal-card h4 {
+  color: #2c3e50;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.animal-card p {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* 快速开始区域 */
+.quick-start-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  margin: 3rem 0;
+  color: white;
+}
+
+.quick-start-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.quick-start-header h2 {
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.quick-start-header p {
+  opacity: 0.9;
+}
+
+.quick-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.quick-step {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.quick-step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.step-icon {
+  font-size: 1.5rem;
+}
+
+.quick-step-header strong {
+  color: white;
+  font-size: 1rem;
+}
+
+.quick-step pre {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
   padding: 0.8rem;
-  text-align: left;
+  margin: 0;
+  overflow-x: auto;
 }
-.animal-table td {
-  padding: 0.8rem;
-  border-bottom: 1px solid #eee;
+
+.quick-step code {
+  color: #fff;
+  font-size: 0.85rem;
 }
-.animal-table tr:hover {
-  background: #f5f5f5;
+
+/* 为什么选择 */
+.why-section {
+  margin: 3rem 0;
 }
-.code-example {
+
+.why-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.why-header h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.comparison-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .comparison-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.comparison-box {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.comparison-box h4 {
+  margin-top: 0;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #e9ecef;
+  color: #2c3e50;
+}
+
+.comparison-box.old h4 {
+  border-bottom-color: #e74c3c;
+}
+
+.comparison-box.new h4 {
+  border-bottom-color: #27ae60;
+}
+
+.comparison-box pre {
   background: #1e1e1e;
   color: #d4d4d4;
   padding: 1rem;
   border-radius: 8px;
-  margin: 1rem 0;
   overflow-x: auto;
+  margin: 0;
 }
-.quick-start {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 2rem;
+
+.comparison-box p {
+  color: #6c757d;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* 概念映射表 */
+.mapping-section {
+  background: #f8f9fa;
   border-radius: 12px;
-  margin: 2rem 0;
+  padding: 2rem;
+  margin: 3rem 0;
 }
-.quick-start h2 {
-  color: white;
+
+.mapping-header {
   text-align: center;
   margin-bottom: 1.5rem;
 }
-.quick-start-steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-.step {
-  background: rgba(255,255,255,0.1);
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: center;
-}
-.step-number {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-.why-zoo {
-  margin: 2rem 0;
-}
-.why-zoo h2 {
-  text-align: center;
+
+.mapping-header h3 {
   color: #2c3e50;
 }
-.comparison-table {
+
+.mapping-table {
   width: 100%;
-  margin: 1.5rem 0;
   border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.comparison-table th {
-  background: #667eea;
+
+.mapping-table th {
+  background: linear-gradient(135deg, #42b883 0%, #35495e 100%);
   color: white;
   padding: 1rem;
+  text-align: left;
+  font-weight: 600;
 }
-.comparison-table td {
+
+.mapping-table td {
   padding: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.mapping-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mapping-table tr:hover {
+  background: #f8f9fa;
+}
+
+.zoo-concept-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+/* 导航区域 */
+.guide-section {
+  margin: 3rem 0;
+}
+
+.guide-header {
   text-align: center;
+  margin-bottom: 2rem;
 }
-.guide-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-.guide-card {
-  background: white;
-  padding: 1.2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border-top: 3px solid #42b883;
-}
-.guide-card h4 {
-  margin-top: 0;
+
+.guide-header h2 {
   color: #2c3e50;
+  font-size: 1.8rem;
 }
-.guide-card ul {
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.guide-box {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-top: 4px solid #42b883;
+}
+
+.guide-box h4 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.guide-box ul {
   margin: 0;
   padding-left: 1.2rem;
 }
-.guide-card a {
+
+.guide-box li {
+  margin: 0.6rem 0;
+}
+
+.guide-box a {
   color: #42b883;
   text-decoration: none;
 }
-.guide-card a:hover {
+
+.guide-box a:hover {
+  text-decoration: underline;
+}
+
+/* 页脚 */
+.footer-section {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.footer-links {
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: #42b883;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.footer-links a:hover {
   text-decoration: underline;
 }
 </style>
 
-<div class="zoo-concept">
+<div class="holy-grail-container">
 
-## 🎪 动物园理念
-
-> **Zoo Framework** 的设计理念来自真实的动物园管理系统
-
-```mermaid
+<!-- 动物园理念 - 圣杯布局 -->
+<div class="zoo-concept-section">
+  <div class="zoo-concept-header">
+    <h2>🎪 动物园理念</h2>
+    <p>Zoo Framework 的设计理念来自真实的动物园管理系统</p>
+  </div>
+  
+  <div class="holy-grail-body">
+    <!-- 左侧：核心概念 -->
+    <div class="left-sidebar">
+      <h3>🎯 核心概念</h3>
+      <ul class="concept-list">
+        <li>
+          <span class="concept-icon">🦁</span>
+          <div class="concept-text">
+            <strong>Worker</strong>
+            <small>动物工作器</small>
+          </div>
+        </li>
+        <li>
+          <span class="concept-icon">🏠</span>
+          <div class="concept-text">
+            <strong>Cage</strong>
+            <small>笼子管理</small>
+          </div>
+        </li>
+        <li>
+          <span class="concept-icon">👨‍💼</span>
+          <div class="concept-text">
+            <strong>Master</strong>
+            <small>园长大人</small>
+          </div>
+        </li>
+        <li>
+          <span class="concept-icon">🍖</span>
+          <div class="concept-text">
+            <strong>Event</strong>
+            <small>食物事件</small>
+          </div>
+        </li>
+        <li>
+          <span class="concept-icon">📊</span>
+          <div class="concept-text">
+            <strong>FIFO</strong>
+            <small>饲养员队列</small>
+          </div>
+        </li>
+        <li>
+          <span class="concept-icon">🗺️</span>
+          <div class="concept-text">
+            <strong>State</strong>
+            <small>状态图</small>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- 中间：架构图 -->
+    <div class="main-content">
+      <h3>🏛️ 动物园架构</h3>
+      <pre class="mermaid">
 graph TB
-    subgraph 🎪 Zoo Framework 动物园
-        M[👨‍💼 Master 园长<br/>统筹全局]
-        
-        subgraph 🏠 Cage 笼子区
-            C1[🦁 狮子笼<br/>高优先级 Worker]
-            C2[🐒 猴子笼<br/>普通 Worker]
-            C3[🦥 树懒笼<br/>延迟 Worker]
-        end
-        
-        subgraph 🍖 食堂 FIFO
-            F[📊 饲养员队列<br/>优先级分发]
-        end
-        
-        subgraph 🗺️ 状态中心
-            S[🗺️ 动物状态图<br/>StateMachine]
-        end
+    M[👨‍💼 Master 园长]
+    
+    subgraph 🏠 Cage Area
+        C1[🦁 狮子笼]
+        C2[🐒 猴子笼]
+        C3[🦥 树懒笼]
     end
     
-    M -->|管理| C1
-    M -->|管理| C2
-    M -->|管理| C3
-    F -->|喂食| C1
-    F -->|喂食| C2
-    F -->|喂食| C3
-    C1 -->|更新| S
-    C2 -->|更新| S
-    C3 -->|更新| S
-```
-
+    subgraph 🍖 Food Center
+        F[📊 FIFO 队列]
+    end
+    
+    subgraph 🗺️ State Center
+        S[🔄 状态机]
+    end
+    
+    M --> C1
+    M --> C2
+    M --> C3
+    F --> C1
+    F --> C2
+    F --> C3
+    C1 --> S
+    C2 --> S
+    C3 --> S
+      </pre>
+    </div>
+    
+    <!-- 右侧：工作流程 -->
+    <div class="right-sidebar">
+      <h3>📋 工作流程</h3>
+      <div class="workflow-step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>🌅 晨检</strong>
+          <small>Master 检查所有 Worker 状态</small>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>🍖 喂食</strong>
+          <small>FIFO 按优先级分发 Event</small>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>🔄 工作</strong>
+          <small>Worker 在 Cage 中执行任务</small>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>📊 记录</strong>
+          <small>StateMachine 更新状态</small>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="step-num">5</span>
+        <div class="step-content">
+          <strong>🌙 休息</strong>
+          <small>保存数据，等待下一轮</small>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="concept-grid">
-
-<div class="concept-card">
-
-### 🦁 Worker = 动物
-
-每只 **Worker** 都是动物园里独特的动物：
-
-| 动物 | Worker 类型 | 特点 |
-|:---:|:---|:---|
-| 🦁 | 高优先级 Worker | 凶猛、优先获得资源 |
-| 🐒 | 普通 Worker | 灵活、好动、循环执行 |
-| 🦥 | 延迟 Worker | 慢吞吞、定时执行 |
-| 🦅 | 事件 Worker | 敏锐、响应事件 |
-| 🐘 | 状态机 Worker | 稳重、管理复杂状态 |
-
+<!-- 动物类型 -->
+<div class="animal-types-section">
+  <div class="animal-types-header">
+    <h2>🦁 Worker 动物类型</h2>
+  </div>
+  <div class="animal-cards">
+    <div class="animal-card lion">
+      <div class="animal-emoji">🦁</div>
+      <h4>狮子</h4>
+      <p>高优先级 Worker<br>凶猛、抢占资源</p>
+    </div>
+    <div class="animal-card monkey">
+      <div class="animal-emoji">🐒</div>
+      <h4>猴子</h4>
+      <p>普通 Worker<br>灵活、循环执行</p>
+    </div>
+    <div class="animal-card sloth">
+      <div class="animal-emoji">🦥</div>
+      <h4>树懒</h4>
+      <p>延迟 Worker<br>慢吞吞、定时任务</p>
+    </div>
+    <div class="animal-card eagle">
+      <div class="animal-emoji">🦅</div>
+      <h4>老鹰</h4>
+      <p>事件 Worker<br>敏锐、响应迅速</p>
+    </div>
+    <div class="animal-card elephant">
+      <div class="animal-emoji">🐘</div>
+      <h4>大象</h4>
+      <p>状态机 Worker<br>稳重、管理状态</p>
+    </div>
+  </div>
 </div>
 
-<div class="concept-card">
-
-### 🏠 Cage = 笼子
-
-**Cage**（笼子）是动物们的家：
-
-- 🔒 **安全防护** - 防止动物乱跑（线程安全）
-- 🔄 **统一管理** - 管理动物的作息（生命周期）
-- 📢 **互相通信** - 笼子之间的传声筒（事件通信）
-- 📊 **状态监控** - 记录动物的健康状态（监控）
-
-</div>
-
-<div class="concept-card">
-
-### 🎪 Master = 园长
-
-**Master** 是动物园园长：
-
-- 🌅 早上 - 检查所有动物（Worker）状态
-- 🍖 上午 - 分发食物（Event）给饥饿的动物
-- 🔄 下午 - 巡视笼子（Cage），确保运转正常
-- 📊 晚上 - 记录动物状态（StateMachine）
-- 🌙 深夜 - 保存数据，休息
-
-</div>
-
-<div class="concept-card">
-
-### 🍖 Event = 食物
-
-**Event**（事件）是动物们的食物：
-
-```mermaid
-graph LR
-    A[🍖 食物准备] --> B[📊 饲养员队列]
-    B -->|优先级排序| C{🦁 动物饥饿吗？}
-    C -->|Yes| D[🦁 狮子先吃]
-    C -->|Yes| E[🐒 猴子后吃]
-    C -->|Yes| F[🦥 树懒最后吃]
-```
-
-</div>
-
-</div>
-
-<div class="quick-start">
-
-## 🚀 快速入园
-
-<div class="quick-start-steps">
-
-<div class="step">
-<div class="step-number">1️⃣</div>
-<strong>买票（安装）</strong>
-
-```bash
-pip install zoo-framework
-```
-
-</div>
-
-<div class="step">
-<div class="step-number">2️⃣</div>
-<strong>搭建动物园</strong>
-
-```bash
-zfc --create my_zoo
-cd my_zoo
-```
-
-</div>
-
-<div class="step">
-<div class="step-number">3️⃣</div>
-<strong>养一只狮子</strong>
-
-```python
-class LionWorker(BaseWorker):
+<!-- 快速开始 -->
+<div class="quick-start-section">
+  <div class="quick-start-header">
+    <h2>🚀 快速入园</h2>
+    <p>只需 4 步，搭建属于你的动物园</p>
+  </div>
+  <div class="quick-steps">
+    <div class="quick-step">
+      <div class="quick-step-header">
+        <span class="step-icon">🎫</span>
+        <strong>买票安装</strong>
+      </div>
+      <pre><code>pip install zoo-framework</code></pre>
+    </div>
+    <div class="quick-step">
+      <div class="quick-step-header">
+        <span class="step-icon">🏗️</span>
+        <strong>搭建动物园</strong>
+      </div>
+      <pre><code>zfc --create my_zoo
+cd my_zoo</code></pre>
+    </div>
+    <div class="quick-step">
+      <div class="quick-step-header">
+        <span class="step-icon">🦁</span>
+        <strong>养一只狮子</strong>
+      </div>
+      <pre><code>class LionWorker(BaseWorker):
     def _execute(self):
-        print("🦁 吼！我是狮子王！")
-```
-
+        print("吼！")</code></pre>
+    </div>
+    <div class="quick-step">
+      <div class="quick-step-header">
+        <span class="step-icon">🎪</span>
+        <strong>开园！</strong>
+      </div>
+      <pre><code>master = Master()
+master.run()</code></pre>
+    </div>
+  </div>
 </div>
 
-<div class="step">
-<div class="step-number">4️⃣</div>
-<strong>开园！</strong>
-
-```python
-master = Master()
-master.run()
-```
-
-</div>
-
-</div>
-
-</div>
-
-<div class="why-zoo">
-
-## 🌟 为什么选择 Zoo Framework？
-
-### 🎪 有趣的编程体验
-
-<table class="comparison-table">
-<thead>
-<tr>
-<th>传统多线程</th>
-<th>Zoo Framework</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-
-```python
-import threading
+<!-- 为什么选择 -->
+<div class="why-section">
+  <div class="why-header">
+    <h2>🌟 为什么选择 Zoo Framework？</h2>
+  </div>
+  <div class="comparison-container">
+    <div class="comparison-box old">
+      <h4>❌ 传统多线程</h4>
+      <pre><code>import threading
 t = threading.Thread(target=func)
 t.start()
-```
-
-枯燥的 Thread 管理 😴
-
-</td>
-<td>
-
-```python
-class LionWorker(BaseWorker):
+t.join()</code></pre>
+      <p>枯燥的 Thread 管理 😴</p>
+    </div>
+    <div class="comparison-box new">
+      <h4>✅ Zoo Framework</h4>
+      <pre><code>class LionWorker(BaseWorker):
     def _execute(self):
-        print("吼！")
-```
-
-有趣的动物园管理 🦁🎪
-
-</td>
-</tr>
-</tbody>
-</table>
-
-### 🧠 易理解的设计
-
-| 🎪 动物园概念 | 💻 编程概念 |
-|:---:|:---|
-| 🦁 动物 | Worker 工作器 |
-| 🏠 笼子 | Cage 线程管理 |
-| 👨‍💼 园长 | Master 调度器 |
-| 🍖 食物 | Event 事件 |
-| 📊 饲养员 | FIFO 队列 |
-| 🗺️ 状态图 | StateMachine |
-
+        print("🦁 吼！")</code></pre>
+      <p>有趣的动物园管理 🦁🎪</p>
+    </div>
+  </div>
 </div>
 
-## 📚 游览指南
-
-<div class="guide-links">
-
-<div class="guide-card">
-
-#### 🔰 新手入园
-
-- [🎫 入园指南](/start/) - 5分钟成为合格饲养员
-- [🏗️ 搭建笼子](/start/new.html) - 创建你的第一个动物园
-- [🗺️ 动物园布局](/guide/structure.html) - 了解动物园结构
-
+<!-- 概念映射 -->
+<div class="mapping-section">
+  <div class="mapping-header">
+    <h3>🧠 易理解的设计映射</h3>
+  </div>
+  <table class="mapping-table">
+    <thead>
+      <tr>
+        <th>🎪 动物园概念</th>
+        <th>💻 编程概念</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="zoo-concept-cell">🦁 动物</span></td>
+        <td>Worker 工作器</td>
+      </tr>
+      <tr>
+        <td><span class="zoo-concept-cell">🏠 笼子</span></td>
+        <td>Cage 线程管理</td>
+      </tr>
+      <tr>
+        <td><span class="zoo-concept-cell">👨‍💼 园长</span></td>
+        <td>Master 调度器</td>
+      </tr>
+      <tr>
+        <td><span class="zoo-concept-cell">🍖 食物</span></td>
+        <td>Event 事件</td>
+      </tr>
+      <tr>
+        <td><span class="zoo-concept-cell">📊 饲养员</span></td>
+        <td>FIFO 队列</td>
+      </tr>
+      <tr>
+        <td><span class="zoo-concept-cell">🗺️ 状态图</span></td>
+        <td>StateMachine</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<div class="guide-card">
-
-#### 🦁 认识动物
-
-- [🦁 Worker 动物们](/core/worker.html) - 了解各种动物的特点
-- [🍖 Event 食物系统](/core/event.html) - 如何喂养动物
-- [🗺️ 状态图](/core/statemachine.html) - 动物的心情变化
-- [📊 FIFO 饲养员](/core/fifo.html) - 食物分发机制
-- [🏠 Cage 笼子](/core/cage.html) - 动物的家
-
+<!-- 游览指南 -->
+<div class="guide-section">
+  <div class="guide-header">
+    <h2>📚 游览指南</h2>
+  </div>
+  <div class="guide-grid">
+    <div class="guide-box">
+      <h4>🔰 新手入园</h4>
+      <ul>
+        <li><a href="/start/">🎫 入园指南</a> - 5分钟上手</li>
+        <li><a href="/start/new.html">🏗️ 搭建动物园</a> - 创建项目</li>
+        <li><a href="/guide/structure.html">🗺️ 动物园布局</a> - 了解结构</li>
+      </ul>
+    </div>
+    <div class="guide-box">
+      <h4>🦁 认识动物</h4>
+      <ul>
+        <li><a href="/core/worker.html">🦁 Worker 动物</a> - 动物特点</li>
+        <li><a href="/core/cage.html">🏠 Cage 笼子</a> - 动物的家</li>
+        <li><a href="/core/event.html">🍖 Event 食物</a> - 喂养系统</li>
+        <li><a href="/core/statemachine.html">🗺️ 状态图</a> - 心情变化</li>
+        <li><a href="/core/fifo.html">📊 FIFO 饲养员</a> - 分发机制</li>
+      </ul>
+    </div>
+    <div class="guide-box">
+      <h4>🎪 高级驯兽</h4>
+      <ul>
+        <li><a href="/advanced/aop.html">✂️ AOP 驯兽</a></li>
+        <li><a href="/advanced/reactor.html">⚡ Reactor 训练</a></li>
+        <li><a href="/advanced/lock.html">🔒 Cage 安全</a></li>
+        <li><a href="/advanced/plugin.html">🔌 引入新物种</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div class="guide-card">
-
-#### 🎪 高级驯兽
-
-- [✂️ AOP 驯兽技巧](/advanced/aop.html)
-- [⚡ Reactor 反应训练](/advanced/reactor.html)
-- [🔒 Cage 安全加固](/advanced/lock.html)
-- [🔌 引入新物种](/advanced/plugin.html)
-
+<!-- 页脚 -->
+<div class="footer-section">
+  <div class="footer-links">
+    <a href="https://github.com/YearsAlso/zoo-framework">GitHub</a> | 
+    <a href="https://github.com/YearsAlso/zoo-framework/issues">Issues</a> | 
+    <a href="https://github.com/YearsAlso/zoo-framework-doc">文档仓库</a>
+  </div>
+  <p>🎪 Made with ❤️ by Zoo Framework Team 🦁</p>
 </div>
 
 </div>
-
-## 🤝 成为饲养员
-
-欢迎加入 Zoo Framework 动物园！
-
-<p align="center">
-  <a href="https://github.com/YearsAlso/zoo-framework">GitHub</a> | 
-  <a href="https://github.com/YearsAlso/zoo-framework/issues">Issues</a> | 
-  <a href="https://github.com/YearsAlso/zoo-framework-doc">文档</a>
-</p>
-
----
-
-<p align="center">
-  🎪 Made with ❤️ by Zoo Framework Team 🦁
-</p>
