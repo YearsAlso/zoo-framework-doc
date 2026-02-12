@@ -5,14 +5,12 @@ export default defineConfig({
   title: "Zoo Framework",
   description: "A Zoo-themed Multi-threading Framework",
   
-  // 默认语言
-  lang: 'zh-CN',
-  
   // 多语言配置
   locales: {
     root: {
       label: '简体中文',
       lang: 'zh-CN',
+      link: '/',
       themeConfig: {
         nav: [
           { text: '🏠 首页', link: '/' },
@@ -21,6 +19,24 @@ export default defineConfig({
           { text: '🔧 API', link: '/api/core' },
         ],
         sidebar: {
+          '/': [
+            {
+              text: '🎪 快速开始',
+              collapsed: false,
+              items: [
+                { text: '入园指南', link: '/start/' },
+                { text: '搭建动物园', link: '/start/new' },
+              ]
+            },
+            {
+              text: '📚 基础指南',
+              collapsed: false,
+              items: [
+                { text: '动物园布局', link: '/guide/structure' },
+                { text: '配置说明', link: '/guide/configuration' },
+              ]
+            },
+          ],
           '/start/': [
             {
               text: '🎪 快速开始',
@@ -30,6 +46,16 @@ export default defineConfig({
                 { text: '搭建动物园', link: '/start/new' },
               ]
             },
+            {
+              text: '📚 基础指南',
+              collapsed: false,
+              items: [
+                { text: '动物园布局', link: '/guide/structure' },
+                { text: '配置说明', link: '/guide/configuration' },
+              ]
+            },
+          ],
+          '/guide/': [
             {
               text: '📚 基础指南',
               collapsed: false,
@@ -52,6 +78,18 @@ export default defineConfig({
                 { text: '🎛️ Waiter 调度', link: '/core/waiter' },
               ]
             },
+            {
+              text: '🔧 高级特性',
+              collapsed: false,
+              items: [
+                { text: '✂️ AOP 驯兽', link: '/advanced/aop' },
+                { text: '⚡ Reactor 反应', link: '/advanced/reactor' },
+                { text: '🔒 Lock 安全', link: '/advanced/lock' },
+                { text: '🔌 Plugin 新物种', link: '/advanced/plugin' },
+              ]
+            },
+          ],
+          '/advanced/': [
             {
               text: '🔧 高级特性',
               collapsed: false,
@@ -91,6 +129,128 @@ export default defineConfig({
         },
       }
     },
+    zh: {
+      label: '简体中文',
+      lang: 'zh-CN',
+      link: '/zh/',
+      themeConfig: {
+        nav: [
+          { text: '🏠 首页', link: '/zh/' },
+          { text: '🎪 快速开始', link: '/zh/start/' },
+          { text: '🦁 核心概念', link: '/zh/core/worker' },
+          { text: '🔧 API', link: '/zh/api/core' },
+        ],
+        sidebar: {
+          '/zh/': [
+            {
+              text: '🎪 快速开始',
+              collapsed: false,
+              items: [
+                { text: '入园指南', link: '/zh/start/' },
+                { text: '搭建动物园', link: '/zh/start/new' },
+              ]
+            },
+            {
+              text: '📚 基础指南',
+              collapsed: false,
+              items: [
+                { text: '动物园布局', link: '/zh/guide/structure' },
+                { text: '配置说明', link: '/zh/guide/configuration' },
+              ]
+            },
+          ],
+          '/zh/start/': [
+            {
+              text: '🎪 快速开始',
+              collapsed: false,
+              items: [
+                { text: '入园指南', link: '/zh/start/' },
+                { text: '搭建动物园', link: '/zh/start/new' },
+              ]
+            },
+            {
+              text: '📚 基础指南',
+              collapsed: false,
+              items: [
+                { text: '动物园布局', link: '/zh/guide/structure' },
+                { text: '配置说明', link: '/zh/guide/configuration' },
+              ]
+            },
+          ],
+          '/zh/guide/': [
+            {
+              text: '📚 基础指南',
+              collapsed: false,
+              items: [
+                { text: '动物园布局', link: '/zh/guide/structure' },
+                { text: '配置说明', link: '/zh/guide/configuration' },
+              ]
+            },
+          ],
+          '/zh/core/': [
+            {
+              text: '🎪 动物园核心',
+              collapsed: false,
+              items: [
+                { text: '🦁 Worker 动物', link: '/zh/core/worker' },
+                { text: '🏠 Cage 笼子', link: '/zh/core/cage' },
+                { text: '🍖 Event 食物', link: '/zh/core/event' },
+                { text: '🗺️ State 状态图', link: '/zh/core/statemachine' },
+                { text: '📊 FIFO 饲养员', link: '/zh/core/fifo' },
+                { text: '🎛️ Waiter 调度', link: '/zh/core/waiter' },
+              ]
+            },
+            {
+              text: '🔧 高级特性',
+              collapsed: false,
+              items: [
+                { text: '✂️ AOP 驯兽', link: '/zh/advanced/aop' },
+                { text: '⚡ Reactor 反应', link: '/zh/advanced/reactor' },
+                { text: '🔒 Lock 安全', link: '/zh/advanced/lock' },
+                { text: '🔌 Plugin 新物种', link: '/zh/advanced/plugin' },
+              ]
+            },
+          ],
+          '/zh/advanced/': [
+            {
+              text: '🔧 高级特性',
+              collapsed: false,
+              items: [
+                { text: '✂️ AOP 驯兽', link: '/zh/advanced/aop' },
+                { text: '⚡ Reactor 反应', link: '/zh/advanced/reactor' },
+                { text: '🔒 Lock 安全', link: '/zh/advanced/lock' },
+                { text: '🔌 Plugin 新物种', link: '/zh/advanced/plugin' },
+              ]
+            },
+          ],
+          '/zh/api/': [
+            {
+              text: '📖 API 参考',
+              collapsed: false,
+              items: [
+                { text: '🔧 核心 API', link: '/zh/api/core' },
+                { text: '🛠️ 工具类', link: '/zh/api/utils' },
+                { text: '📋 常量定义', link: '/zh/api/constant' },
+              ]
+            },
+          ],
+        },
+        outline: {
+          label: '页面导航'
+        },
+        docFooter: {
+          prev: '上一页',
+          next: '下一页'
+        },
+        lastUpdated: {
+          text: '最后更新于'
+        },
+        editLink: {
+          pattern: 'https://github.com/YearsAlso/zoo-framework-doc/edit/main/docs/:path',
+          text: '在 GitHub 上编辑此页'
+        },
+      }
+    },
     en: {
       label: 'English',
       lang: 'en-US',
@@ -103,6 +263,24 @@ export default defineConfig({
           { text: '🔧 API', link: '/en/api/core' },
         ],
         sidebar: {
+          '/en/': [
+            {
+              text: '🎪 Get Started',
+              collapsed: false,
+              items: [
+                { text: 'Quick Start', link: '/en/start/' },
+                { text: 'Create Project', link: '/en/start/new' },
+              ]
+            },
+            {
+              text: '📚 Guide',
+              collapsed: false,
+              items: [
+                { text: 'Project Structure', link: '/en/guide/structure' },
+                { text: 'Configuration', link: '/en/guide/configuration' },
+              ]
+            },
+          ],
           '/en/start/': [
             {
               text: '🎪 Get Started',
@@ -112,6 +290,16 @@ export default defineConfig({
                 { text: 'Create Project', link: '/en/start/new' },
               ]
             },
+            {
+              text: '📚 Guide',
+              collapsed: false,
+              items: [
+                { text: 'Project Structure', link: '/en/guide/structure' },
+                { text: 'Configuration', link: '/en/guide/configuration' },
+              ]
+            },
+          ],
+          '/en/guide/': [
             {
               text: '📚 Guide',
               collapsed: false,
@@ -134,6 +322,18 @@ export default defineConfig({
                 { text: '🎛️ Waiter', link: '/en/core/waiter' },
               ]
             },
+            {
+              text: '🔧 Advanced',
+              collapsed: false,
+              items: [
+                { text: '✂️ AOP', link: '/en/advanced/aop' },
+                { text: '⚡ Reactor', link: '/en/advanced/reactor' },
+                { text: '🔒 Lock', link: '/en/advanced/lock' },
+                { text: '🔌 Plugin', link: '/en/advanced/plugin' },
+              ]
+            },
+          ],
+          '/en/advanced/': [
             {
               text: '🔧 Advanced',
               collapsed: false,
