@@ -197,26 +197,26 @@ python main.py
 
 ```mermaid
 flowchart TB
-    subgraph 🎯 Application
+    subgraph "🎯 Application"
         M[🎛️ Master<br/>调度中心]
     end
     
-    subgraph 🔄 Scheduling
+    subgraph "🔄 Scheduling"
         W[🎛️ Waiter<br/>执行策略]
     end
     
-    subgraph 👷 Workers
+    subgraph "👷 Workers"
         W1[👷 Worker 1<br/>循环任务]
         W2[👷 Worker 2<br/>事件驱动]
         W3[👷 Worker 3<br/>单次任务]
     end
     
-    subgraph 📬 Communication
+    subgraph "📬 Communication"
         E[📬 EventChannel<br/>事件通道]
         F[📊 EventFIFO<br/>优先级队列]
     end
     
-    subgraph 💾 Persistence
+    subgraph "💾 Persistence"
         S[🔄 StateMachine<br/>状态管理]
         L[📝 LogUtils<br/>日志系统]
     end

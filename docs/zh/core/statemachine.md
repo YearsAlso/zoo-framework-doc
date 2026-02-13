@@ -10,7 +10,7 @@ Zoo Framework 内置了强大的状态机引擎，用于管理复杂的状态转
 
 ```mermaid
 graph TB
-    subgraph 🔄 StateMachine
+    subgraph "🔄 StateMachine"
         SM[🎛️ StateMachine<br/>状态机]
         SN[📍 StateNode<br/>状态节点]
         SE[✨ StateEffect<br/>状态效果]
