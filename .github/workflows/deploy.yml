@@ -33,6 +33,8 @@ jobs:
         with:
           fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
       - uses: pnpm/action-setup@v2 # 使用 pnpm
+        with:
+          version: 8
       # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -46,7 +48,7 @@ jobs:
       - name: Build with VitePress
         run: |
           pnpm run docs:build # 使用 pnpm 构建
-           touch docs/.vitepress/dist/.nojekyll
+          touch docs/.vitepress/dist/.nojekyll
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
