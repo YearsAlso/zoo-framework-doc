@@ -43,20 +43,20 @@ features:
 
 ```mermaid
 graph TB
-    subgraph 🎪 Zoo Framework 动物园
+    subgraph "🎪 Zoo Framework 动物园"
         M[👨‍💼 Master 园长<br/>统筹全局]
         
-        subgraph 🏠 Cage 笼子区
+        subgraph "🏠 Cage 笼子区"
             C1[🦁 狮子笼<br/>高优先级 Worker]
             C2[🐒 猴子笼<br/>普通 Worker]
             C3[🦥 树懒笼<br/>延迟 Worker]
         end
         
-        subgraph 🍖 食堂 FIFO
+        subgraph "🍖 食堂 FIFO"
             F[📊 饲养员队列<br/>优先级分发]
         end
         
-        subgraph 🗺️ 状态中心
+        subgraph "🗺️ 状态中心"
             S[🗺️ 动物状态图<br/>StateMachine]
         end
     end
