@@ -6,19 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: pnpm
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Run linter
-        run: |
-          if pnpm -s run lint --silent; then
-            echo "lint passed"
-          else
-            echo "No lint script found or lint failed — skipping lint step to avoid CI failure."
-          fi
+      - name: Run oxlint
+        run: pnpm lint
