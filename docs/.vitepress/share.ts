@@ -1,7 +1,14 @@
 import { defineConfig } from 'vitepress'
 import { search as zhSearch } from './zh'
 
+// For GitHub Pages project sites the app is served from `/<repo>/`.
+// When developing locally or deploying to a custom domain/root, keep base as `/`.
+const repo = process.env.REPO_NAME || 'zoo-framework-doc'
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true'
+const base = isGitHubPages ? `/${repo}/` : '/'
+
 export const shared = defineConfig({
+    base,
     title: "Zoo Framework",
 
     lastUpdated: true,
@@ -28,8 +35,8 @@ export const shared = defineConfig({
 
     /* prettier-ignore */
     head: [
-        ['link', { rel: 'icon', type: 'image/svg+xml', href: '/vitepress-logo-mini.svg' }],
-        ['link', { rel: 'icon', type: 'image/png', href: '/vitepress-logo-mini.png' }],
+        ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}vitepress-logo-mini.svg` }],
+        ['link', { rel: 'icon', type: 'image/png', href: `${base}vitepress-logo-mini.png` }],
         ['meta', { name: 'theme-color', content: '#5f67ee' }],
         ['meta', { name: 'og:type', content: 'website' }],
         ['meta', { name: 'og:locale', content: 'en' }],
@@ -39,7 +46,7 @@ export const shared = defineConfig({
     ],
 
     themeConfig: {
-        logo: { src: '/vitepress-logo-mini.svg', width: 24, height: 24 },
+        logo: { src: `${base}vitepress-logo-mini.svg`, width: 24, height: 24 },
 
         socialLinks: [
             { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
