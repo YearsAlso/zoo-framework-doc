@@ -2,46 +2,46 @@
 outline: deep
 ---
 
-# 🆕 新建项目
+# 🆕 Create New Project
 
-## 🛠️ 使用 zfc 命令行工具
+## 🛠️ Using zfc CLI Tool
 
-Zoo Framework 提供了 `zfc` 命令行工具来快速创建项目结构。
+Zoo Framework provides the `zfc` command-line tool for quick project scaffolding.
 
-## 📁 创建项目
+## 📁 Create Project
 
 ```bash
 zfc --create <project_name>
 ```
 
-示例：
+Example:
 
 ```bash
 zfc --create ecommerce_system
 ```
 
-## 🗂️ 项目结构
+## 🗂️ Project Structure
 
-创建后的项目结构如下：
+After creation, the project structure looks like:
 
 ```
 ecommerce_system/
-├── 📄 config.json              # 🔧 主配置文件
-├── 📁 src/                     # 💻 源代码目录
-│   ├── 🚀 main.py             # 🎯 应用入口
-│   ├── 👷 workers/            # 👷 Worker 目录
+├── 📄 config.json              # 🔧 Main configuration
+├── 📁 src/                     # 💻 Source code
+│   ├── 🚀 main.py             # 🎯 Application entry
+│   ├── 👷 workers/            # 👷 Worker directory
 │   │   ├── __init__.py
 │   │   └── *.py
-│   ├── 📬 events/             # 📬 事件定义目录
+│   ├── 📬 events/             # 📬 Event definitions
 │   │   ├── __init__.py
 │   │   └── *.py
-│   ├── ⚙️ conf/               # ⚙️ 配置类目录
+│   ├── ⚙️ conf/               # ⚙️ Configuration classes
 │   │   ├── __init__.py
 │   │   └── *.py
-│   └── 📋 params/             # 📋 参数类目录
+│   └── 📋 params/             # 📋 Parameter classes
 │       ├── __init__.py
 │       └── *.py
-└── 📁 logs/                   # 📝 日志目录
+└── 📁 logs/                   # 📝 Log directory
 ```
 
 ### 📄 config.json
@@ -63,29 +63,29 @@ ecommerce_system/
 }
 ```
 
-配置项说明：
+Configuration options:
 
-| 🔧 配置项 | 📋 类型 | 📝 说明 | 🔢 默认值 |
-|-----------|---------|---------|-----------|
-| `log.path` | 📁 string | 日志文件存储路径 | `./logs` |
-| `log.level` | 📊 string | 日志级别 | `info` |
-| `worker.runPolicy` | 🎛️ string | Worker 运行策略 | `simple` |
-| `worker.pool.enabled` | ✅ boolean | 是否启用线程池 | `false` |
-| `worker.pool.size` | 🔢 integer | 线程池大小 | `5` |
+| 🔧 Option | 📋 Type | 📝 Description | 🔢 Default |
+|-----------|---------|----------------|------------|
+| `log.path` | 📁 string | Log file path | `./logs` |
+| `log.level` | 📊 string | Log level | `info` |
+| `worker.runPolicy` | 🎛️ string | Worker policy | `simple` |
+| `worker.pool.enabled` | ✅ boolean | Enable thread pool | `false` |
+| `worker.pool.size` | 🔢 integer | Pool size | `5` |
 
-## 👷 创建 Worker
+## 👷 Create Worker
 
 ```bash
 zfc --worker <worker_name>
 ```
 
-示例：
+Example:
 
 ```bash
 zfc --worker order_processor
 ```
 
-这会在 `src/workers/` 目录下创建 `order_processor_worker.py`：
+This creates `src/workers/order_processor_worker.py`:
 
 ```python
 from zoo_framework.workers.base_worker import BaseWorker
@@ -103,17 +103,17 @@ class OrderProcessorWorker(BaseWorker):
         pass
 
     def _execute(self):
-        # 📝 编写业务逻辑
+        # 📝 Write business logic
         pass
 ```
 
-同时在 `src/workers/__init__.py` 中自动注册：
+And registers in `src/workers/__init__.py`:
 
 ```python
 from .order_processor_worker import OrderProcessorWorker
 ```
 
-## 📊 项目架构图
+## 📊 Project Architecture Diagram
 
 ```mermaid
 graph TB
@@ -162,16 +162,16 @@ graph TB
     W2 --> L1
 ```
 
-## 💼 完整示例
+## 💼 Complete Example
 
-### 1️⃣ 创建项目
+### 1️⃣ Create Project
 
 ```bash
 zfc --create order_system
 cd order_system
 ```
 
-### 2️⃣ 创建多个 Worker
+### 2️⃣ Create Multiple Workers
 
 ```bash
 zfc --worker order_receiver
@@ -179,7 +179,7 @@ zfc --worker order_processor
 zfc --worker order_notifier
 ```
 
-### 3️⃣ 编写业务代码
+### 3️⃣ Write Business Code
 
 📄 `src/workers/order_receiver_worker.py`:
 
@@ -192,22 +192,22 @@ from zoo_framework.fifo.node import EventNode
 
 class OrderReceiverWorker(BaseWorker):
     """
-    📥 订单接收 Worker - 接收并分发订单
+    📥 Order Receiver Worker - Receives and distributes orders
     """
     
     def __init__(self):
         super().__init__({
             "is_loop": True,
-            "delay_time": 3,  # ⏱️ 每 3 秒检查一次
+            "delay_time": 3,  # ⏱️ Check every 3 seconds
             "name": "OrderReceiverWorker"
         })
     
     def _execute(self):
-        # 📦 模拟接收订单
+        # 📦 Simulate receiving order
         order = {"order_id": f"ORD-{time.time()}", "amount": 199.99}
-        LogUtils.info(f"📥 接收订单: {order['order_id']}")
+        LogUtils.info(f"📥 Received order: {order['order_id']}")
         
-        # 📤 发送订单事件
+        # 📤 Send order event
         node = EventNode(
             topic="order.received",
             content=order,
@@ -226,24 +226,24 @@ from zoo_framework.event import EventChannelManager
 
 class OrderProcessorWorker(BaseWorker):
     """
-    ⚙️ 订单处理 Worker - 处理订单业务
+    ⚙️ Order Processor Worker - Processes order business
     """
     
     def __init__(self):
         super().__init__({
             "is_loop": True,
-            "delay_time": 1,  # ⏱️ 每秒处理一次
+            "delay_time": 1,  # ⏱️ Process every second
             "name": "OrderProcessorWorker"
         })
     
     def _execute(self):
-        # 📥 从事件通道获取订单
+        # 📥 Get order from event channel
         channel = EventChannelManager.get_channel("order")
         node = channel.pop()
         
         if node and node.topic == "order.received":
-            LogUtils.info(f"⚙️ 处理订单: {node.content['order_id']}")
-            # 💰 扣款、减库存等业务逻辑...
+            LogUtils.info(f"⚙️ Processing order: {node.content['order_id']}")
+            # 💰 Deduct payment, reduce inventory...
             self.process_payment(node.content)
 ```
 
@@ -256,7 +256,7 @@ from zoo_framework.utils import LogUtils
 
 class OrderNotifierWorker(BaseWorker):
     """
-    📧 订单通知 Worker - 发送订单通知
+    📧 Order Notifier Worker - Sends order notifications
     """
     
     def __init__(self):
@@ -267,11 +267,11 @@ class OrderNotifierWorker(BaseWorker):
         })
     
     def _execute(self):
-        # 📧 发送邮件/短信通知
-        LogUtils.info("📧 发送订单通知")
+        # 📧 Send email/SMS notification
+        LogUtils.info("📧 Sending order notification")
 ```
 
-### 4️⃣ 配置 config.json
+### 4️⃣ Configure config.json
 
 ```json
 {
@@ -290,7 +290,7 @@ class OrderNotifierWorker(BaseWorker):
 }
 ```
 
-### 5️⃣ 启动应用
+### 5️⃣ Launch Application
 
 📄 `src/main.py`:
 
@@ -298,21 +298,21 @@ class OrderNotifierWorker(BaseWorker):
 from zoo_framework.core import Master
 
 if __name__ == "__main__":
-    # 🎯 创建 Master 实例
+    # 🎯 Create Master instance
     master = Master()
     
-    # 🚀 启动应用
+    # 🚀 Launch application
     master.run()
 ```
 
-运行：
+Run:
 
 ```bash
 cd src
 python main.py
 ```
 
-## 🔄 数据流向图
+## 🔄 Data Flow Diagram
 
 ```mermaid
 sequenceDiagram
@@ -321,43 +321,43 @@ sequenceDiagram
     participant P as ⚙️ OrderProcessor
     participant N as 📧 OrderNotifier
     
-    loop 每 3 秒
-        R->>R: 📦 接收订单
-        R->>C: 📤 发送 order.received
+    loop Every 3 seconds
+        R->>R: 📦 Receive order
+        R->>C: 📤 Send order.received
     end
     
-    loop 每 1 秒
-        P->>C: 📥 获取事件
-        C-->>P: 📦 返回订单
-        P->>P: 💰 处理支付
-        P->>P: 📦 减库存
+    loop Every 1 second
+        P->>C: 📥 Get event
+        C-->>P: 📦 Return order
+        P->>P: 💰 Process payment
+        P->>P: 📦 Reduce inventory
     end
     
-    loop 每 5 秒
-        N->>N: 📧 发送通知
+    loop Every 5 seconds
+        N->>N: 📧 Send notification
     end
 ```
 
-## 🎯 配置最佳实践
+## 🎯 Configuration Best Practices
 
-### 📝 日志级别
+### 📝 Log Levels
 
-| 📊 级别 | 📝 使用场景 |
-|---------|-------------|
-| `debug` | 🐛 开发调试 |
-| `info` | 📋 生产环境 |
-| `warning` | ⚠️ 警告信息 |
-| `error` | ❌ 错误信息 |
+| 📊 Level | 📝 Use Case |
+|----------|-------------|
+| `debug` | 🐛 Development debugging |
+| `info` | 📋 Production environment |
+| `warning` | ⚠️ Warning messages |
+| `error` | ❌ Error messages |
 
-### 🎛️ 运行策略
+### 🎛️ Run Policies
 
-| 🎛️ 策略 | 📝 适用场景 | ⚡ 特点 |
-|----------|-------------|---------|
-| `simple` | 🚀 简单应用 | 单线程顺序执行 |
-| `stable` | 🛡️ 生产环境 | 异常自动恢复 |
-| `safe` | 🔒 高并发 | 线程隔离 |
+| 🎛️ Policy | 📝 Use Case | ⚡ Characteristics |
+|------------|-------------|-------------------|
+| `simple` | 🚀 Simple applications | Single-threaded sequential |
+| `stable` | 🛡️ Production | Auto recovery from exceptions |
+| `safe` | 🔒 High concurrency | Thread isolation |
 
-### 🏊 线程池配置
+### 🏊 Thread Pool Configuration
 
 ```json
 {
@@ -370,14 +370,14 @@ sequenceDiagram
 }
 ```
 
-- 🔢 `size`: 根据 CPU 核心数设置，通常为 `CPU核心数 * 2`
-- ✅ `enabled`: CPU 密集型任务建议开启
+- 🔢 `size`: Set based on CPU cores, typically `CPU cores * 2`
+- ✅ `enabled`: Recommended for CPU-intensive tasks
 
-## ❓ 常见问题
+## ❓ FAQ
 
-### Q: 如何创建多个相同类型的 Worker？
+### Q: How to create multiple workers of the same type?
 
-A: 创建不同的类：
+A: Create different classes:
 
 ```python
 class OrderProcessorWorker1(BaseWorker):
@@ -389,21 +389,21 @@ class OrderProcessorWorker2(BaseWorker):
         super().__init__({"name": "OrderProcessor2"})
 ```
 
-### Q: Worker 之间如何通信？
+### Q: How do workers communicate?
 
-A: 使用事件系统：
+A: Use the event system:
 
 ```python
-# Worker A 发送
+# Worker A sends
 EventChannelManager.get_channel("channel_name").push(node)
 
-# Worker B 接收
+# Worker B receives
 node = EventChannelManager.get_channel("channel_name").pop()
 ```
 
-### Q: 如何配置不同环境的配置文件？
+### Q: How to configure different config files for different environments?
 
-A: 使用环境变量：
+A: Use environment variables:
 
 ```python
 import os
@@ -412,8 +412,8 @@ config_file = os.getenv("ZOO_CONFIG", "config.json")
 ParamsFactory(config_file)
 ```
 
-## 📚 下一步
+## 📚 Next Steps
 
-- [👷 深入了解 Worker →](/core/worker.html)
-- [📬 学习事件系统 →](/core/event.html)
-- [🔄 掌握状态机 →](/core/statemachine.html)
+- [👷 Deep dive into Worker →](/en/core/worker.html)
+- [📬 Learn Event System →](/en/core/event.html)
+- [🔄 Master State Machine →](/en/core/statemachine.html)
