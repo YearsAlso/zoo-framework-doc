@@ -43,20 +43,20 @@ features:
 
 ```mermaid
 graph TB
-    subgraph 🎪 Zoo Framework
+    subgraph "🎪 Zoo Framework"
         M[👨‍💼 Master Zookeeper<br/>Overall Management]
         
-        subgraph 🏠 Cage Area
+        subgraph "🏠 Cage Area"
             C1[🦁 Lion Cage<br/>High Priority Worker]
             C2[🐒 Monkey Cage<br/>Normal Worker]
             C3[🦥 Sloth Cage<br/>Delayed Worker]
         end
         
-        subgraph 🍖 Cafeteria FIFO
+        subgraph "🍖 Cafeteria FIFO"
             F[📊 Zookeeper Queue<br/>Priority Distribution]
         end
         
-        subgraph 🗺️ State Center
+        subgraph "🗺️ State Center"
             S[🗺️ Animal States<br/>StateMachine]
         end
     end

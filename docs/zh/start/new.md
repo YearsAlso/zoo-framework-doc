@@ -117,11 +117,11 @@ from .order_processor_worker import OrderProcessorWorker
 
 ```mermaid
 graph TB
-    subgraph 📁 Project Root
+    subgraph "📁 Project Root"
         C[📄 config.json]
     end
     
-    subgraph 📁 src/
+    subgraph "📁 src/"
         M[🚀 main.py]
         
         subgraph 👷 workers/

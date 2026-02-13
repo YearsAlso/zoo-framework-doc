@@ -117,36 +117,36 @@ from .order_processor_worker import OrderProcessorWorker
 
 ```mermaid
 graph TB
-    subgraph 📁 Project Root
+    subgraph "📁 Project Root"
         C[📄 config.json]
     end
     
-    subgraph 📁 src/
+    subgraph "📁 src/"
         M[🚀 main.py]
         
-        subgraph 👷 workers/
+        subgraph "👷 workers/"
             W1[order_worker.py]
             W2[payment_worker.py]
             WI[__init__.py]
         end
         
-        subgraph 📬 events/
+        subgraph "📬 events/"
             E1[event_definitions.py]
             EI[__init__.py]
         end
         
-        subgraph ⚙️ conf/
+        subgraph "⚙️ conf/"
             CF1[app_config.py]
             CFI[__init__.py]
         end
         
-        subgraph 📋 params/
+        subgraph "📋 params/"
             P1[worker_params.py]
             PI[__init__.py]
         end
     end
     
-    subgraph 📁 logs/
+    subgraph "📁 logs/"
         L1[app.log]
     end
     

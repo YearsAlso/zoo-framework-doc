@@ -197,26 +197,26 @@ Expected output:
 
 ```mermaid
 flowchart TB
-    subgraph 🎯 Application
+    subgraph "🎯 Application"
         M[🎛️ Master<br/>Control Center]
     end
     
-    subgraph 🔄 Scheduling
+    subgraph "🔄 Scheduling"
         W[🎛️ Waiter<br/>Execution Policy]
     end
     
-    subgraph 👷 Workers
+    subgraph "👷 Workers"
         W1[👷 Worker 1<br/>Loop Task]
         W2[👷 Worker 2<br/>Event Driven]
         W3[👷 Worker 3<br/>One-time]
     end
     
-    subgraph 📬 Communication
+    subgraph "📬 Communication"
         E[📬 EventChannel<br/>Event Channel]
         F[📊 EventFIFO<br/>Priority Queue]
     end
     
-    subgraph 💾 Persistence
+    subgraph "💾 Persistence"
         S[🔄 StateMachine<br/>State Management]
         L[📝 LogUtils<br/>Logging]
     end

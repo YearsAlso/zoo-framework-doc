@@ -485,13 +485,13 @@ def _execute(self):
 
 ```mermaid
 graph TB
-    subgraph 📤 Producers
+    subgraph "📤 Producers"
         P1[👷 Worker 1]
         P2[👷 Worker 2]
         P3[👷 Worker 3]
     end
     
-    subgraph 📬 Event System
+    subgraph "📬 Event System"
         C1[📬 OrderChannel]
         C2[📬 PaymentChannel]
         C3[📬 LogChannel]
@@ -501,7 +501,7 @@ graph TB
         F3[(📊 LogFIFO)]
     end
     
-    subgraph 📥 Consumers
+    subgraph "📥 Consumers"
         R1[⚡ OrderReactor]
         R2[⚡ PaymentReactor]
         R3[⚡ LogReactor]
