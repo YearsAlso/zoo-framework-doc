@@ -1,11 +1,9 @@
 import { defineConfig } from 'vitepress'
 import { search as zhSearch } from './zh'
 
-// For GitHub Pages project sites the app is served from `/<repo>/`.
-// When developing locally or deploying to a custom domain/root, keep base as `/`.
-const repo = process.env.REPO_NAME || 'zoo-framework-doc'
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true'
-const base = isGitHubPages ? `/${repo}/` : '/'
+// GitHub Pages project site base (fixed).
+// Site URL: https://yearsalso.github.io/zoo-framework-doc/
+const base = '/zoo-framework-doc/'
 
 export const shared = defineConfig({
     base,
@@ -20,7 +18,7 @@ export const shared = defineConfig({
             // We use `[!!code` in demo to prevent transformation, here we revert it back.
             {
                 postprocess(code) {
-                    return code.replace(/\[\!\!code/g, '[!code')
+                    return code.replace(/\[!!code/g, '[!code')
                 }
             }
         ]
