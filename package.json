@@ -8,6 +8,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
+  "packageManager": "pnpm@8.0.0",
   "dependencies": {
     "markdown-it-mathjax3": "^4.3.2"
   }
