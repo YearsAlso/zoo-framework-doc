@@ -469,13 +469,13 @@ sm_manager.create_state_machine("all_orders")  # 不推荐
 
 ```mermaid
 graph TB
-    subgraph ✅ Good Practice
+    subgraph "✅ Good Practice"
         G1[🎛️ order_001]
         G2[🎛️ order_002]
         G3[🎛️ payment_001]
     end
     
-    subgraph ❌ Bad Practice
+    subgraph "❌ Bad Practice"
         B1[🎛️ all_orders<br/>太大难以维护]
     end
 ```
@@ -521,7 +521,7 @@ def transfer_with_validation(self, sm_id, from_state, to_state, data):
 
 ```mermaid
 graph TB
-    subgraph 🎯 Components
+    subgraph "🎯 Components"
         W[👷 Worker]
         E[📬 Event]
         SM[🔄 StateMachine]
