@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/zoo-framework-doc/',
   title: "Zoo Framework",
   description: "A Zoo-themed Multi-threading Framework",
   
