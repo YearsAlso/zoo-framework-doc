@@ -1,0 +1,14 @@
+# build output
+node_modules
+**/node_modules
+
+docs/.vitepress/dist
+**/.vitepress/dist
+
+# caches / generated
+**/.vitepress/cache
+**/.vuepress/.cache
+
+# lockfiles / artifacts
+pnpm-lock.yaml
+
