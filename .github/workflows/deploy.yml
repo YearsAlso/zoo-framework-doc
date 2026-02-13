@@ -29,28 +29,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
-      - uses: pnpm/action-setup@v2 # 使用 pnpm
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 10
-      # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
+
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: pnpm # 使用 pnpm 缓存
+          node-version: 20
+          cache: pnpm
+
       - name: Setup Pages
-        uses: actions/configure-pages@v3
-        with:
-          enablement: true
+        uses: actions/configure-pages@v5
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
       - name: Build with VitePress
         run: |
-          pnpm run docs:build # 使用 pnpm 构建
+          pnpm run docs:build
           touch docs/.vitepress/dist/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -67,4 +71,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
