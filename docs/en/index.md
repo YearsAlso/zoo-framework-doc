@@ -2,339 +2,101 @@
 layout: home
 
 hero:
-  name: "🦁 Zoo Framework"
-  text: "A Zoo-Themed Framework"
-  tagline: 🎪 Turn complex threading into a fun zoo! Each Worker is an animal, Cage is their home
+  name: "Zoo Framework"
+  text: "Python multithreading framework"
+  tagline: Concurrency primitives organized around a zoo metaphor — Workers are the animals, ScopedContainer is their cage, Master runs the park
   image:
-    src: https://mxstorage.oss-cn-beijing.aliyuncs.com/oss-accesslog/zf-main-logo.png
+    src: /logo.png
     alt: Zoo Framework
   actions:
     - theme: brand
-      text: 🎫 Get Started
-      link: /en/start/
+      text: Get Started
+      link: /en/guide/getting-started
     - theme: alt
-      text: 🗺️ Zoo Map
+      text: Core Concepts
       link: /en/core/worker
 
 features:
-  - icon: 🦁
-    title: Worker Animals
-    details: Each Worker is a unique animal in the zoo - from fierce lions (high priority) to lazy sloths (delayed tasks)
-  - icon: 🏠
-    title: Cage System
-    details: Cage is the home for Workers, managing their lifecycle, safety, and communication in harmony
-  - icon: 🎪
-    title: Master Zookeeper
-    details: Master is the zookeeper who schedules all animals and ensures the zoo runs smoothly
-  - icon: 🍖
-    title: Event Food
-    details: Events are food for animals, distributed via FIFO (zookeeper queue) by priority
-  - icon: 🗺️
-    title: State Machine
-    details: Animals have mood state charts - from hungry to full, rest to work, tracked by the state machine
-  - icon: 🔌
-    title: Plugin System
-    details: Support for new species (plugins) - penguins, giraffes... add whatever you want
+  - title: Worker — task execution unit
+    details: Each task is an animal — loop-based, period-based, event-driven or state-machine driven, each on its own beat
+  - title: ScopedContainer — scoped instances
+    details: Process / session / prototype scopes hold shared instances — declarative, resettable, replaceable, and never replacing the class itself
+  - title: Master — lifecycle management
+    details: Loads config, registers workers, drives the dispatch loop, and shuts down gracefully and in order on Ctrl-C
+  - title: Event — event pipeline
+    details: Events flow through channel registration, FIFO queues and reactors, with priorities and response mechanisms to avoid starvation
+  - title: StateMachine — state persistence
+    details: StateScopes sit on pluggable StateIndexes and are periodically saved to a pickle archive with checksum and rolling backups
+  - title: Plugin — plugin system
+    details: Plugin ABC with dependency-ordered loading, plus fixed / exponential / adaptive delay strategies
 ---
 
-## 🎪 The Zoo Concept
+## Positioning
 
-> **Zoo Framework** is inspired by real zoo management systems:
+Zoo Framework is a Python 3.13+ multithreading framework: you define Worker classes, the framework handles registration, scheduling, parameter resolution, event dispatch and shutdown. The scheduling model (thread pool vs thread-per-task) is a config switch; Worker code does not change.
 
-```mermaid
-graph TB
-    subgraph "🎪 Zoo Framework"
-        M[👨‍💼 Master Zookeeper<br/>Overall Management]
-        
-        subgraph "🏠 Cage Area"
-            C1[🦁 Lion Cage<br/>High Priority Worker]
-            C2[🐒 Monkey Cage<br/>Normal Worker]
-            C3[🦥 Sloth Cage<br/>Delayed Worker]
-        end
-        
-        subgraph "🍖 Cafeteria FIFO"
-            F[📊 Zookeeper Queue<br/>Priority Distribution]
-        end
-        
-        subgraph "🗺️ State Center"
-            S[🗺️ Animal States<br/>StateMachine]
-        end
-    end
-    
-    M -->|manage| C1
-    M -->|manage| C2
-    M -->|manage| C3
-    F -->|feed| C1
-    F -->|feed| C2
-    F -->|feed| C3
-    C1 -->|update| S
-    C2 -->|update| S
-    C3 -->|update| S
-```
+## Concept mapping
 
-### 🦁 Worker = Animal
+The zoo metaphor is the framework's naming system:
 
-Each **Worker** is a unique animal in the zoo:
+| Zoo | Framework | Role |
+|---|---|---|
+| Animal | `BaseWorker` | Task execution unit |
+| Cage | `ScopedContainer` | Scoped shared instances |
+| Zookeeper | `Master` | Lifecycle & scheduling |
+| Food | `EventNode` | Inter-worker message |
+| Feeder queue | FIFO / EventChannel | Ordered event queue |
 
-| 🦁 Animal | 📝 Worker Type | ⚡ Characteristics |
-|---------|---------------|---------|
-| 🦁 Lion | High Priority Worker | Fierce, gets resources first |
-| 🐒 Monkey | Normal Worker | Flexible, active, loops execution |
-| 🦥 Sloth | Delayed Worker | Slow, scheduled execution |
-| 🦅 Eagle | Event Worker | Sharp, responds to events |
-| 🐘 Elephant | State Machine Worker | Steady, manages complex states |
+## Quick start
 
-```python
-# 🦁 Create a Lion Worker (high priority)
-from zoo_framework.workers import BaseWorker
-
-class LionWorker(BaseWorker):  # 🦁 Lion
-    def __init__(self):
-        super().__init__({
-            "name": "🦁 LionKing",      # Lion King
-            "delay_time": 1,             # Patrol every second
-            "priority": 100              # 🔴 Highest priority
-        })
-    
-    def _execute(self):
-        print("🦁 Roar! I'm the king, handling important tasks first!")
-```
-
-### 🏠 Cage = Home
-
-**Cage** is the home for animals:
-
-- 🔒 **Safety Protection** - Prevents animals from running wild (thread safety)
-- 🔄 **Schedule Management** - Manages animal routines (lifecycle)
-- 📢 **Communication System** - Inter-cage messaging (event communication)
-- 📊 **Health Monitoring** - Tracks animal health status (monitoring)
-
-```python
-from zoo_framework.core.aop import Cage
-
-@cage.protect  # 🏠 Put Worker in protected cage
-class ProtectedWorker(BaseWorker):
-    """
-    🐒 Protected Monkey Worker
-    Runs safely in the Cage
-    """
-    def _execute(self):
-        print("🐒 I'm playing safely in my cage!")
-```
-
-### 🎪 Master = Zookeeper
-
-**Master** is the zookeeper:
-
-```
-👨‍💼 A Day in the Life of Master:
-├── 🌅 Morning - Check all animal (Worker) status
-├── 🍖 Morning - Distribute food (Events) to hungry animals
-├── 🔄 Afternoon - Patrol cages (Cages), ensure smooth operation
-├── 📊 Evening - Record animal states (StateMachine)
-└── 🌙 Night - Save data, rest
-```
-
-```python
-from zoo_framework.core import Master
-
-# 👨‍💼 Create the zookeeper
-master = Master()
-
-# 🎪 Open the zoo! All animals start working
-master.run()
-```
-
-### 🍖 Event = Food
-
-**Event** is food for animals:
-
-```mermaid
-graph LR
-    A[🍖 Food Prep] --> B[📊 Zookeeper Queue]
-    B -->|priority sort| C{🦁 Animal hungry?}
-    C -->|Yes| D[🦁 Lion eats first]
-    C -->|Yes| E[🐒 Monkey eats next]
-    C -->|Yes| F[🦥 Sloth eats last]
-    
-    style B fill:#fff3e0
-    style D fill:#ffcdd2
-```
-
-```python
-from zoo_framework.fifo.node import EventNode
-
-# 🍖 Prepare food (event)
-food = EventNode(
-    topic="lunch.meat",           # 🥩 Lunch meat
-    content={"type": "beef"},      # Beef
-    priority=100                   # 🔴 High priority food
-)
-
-# 📤 Put in zookeeper queue
-EventChannelManager.get_channel("zoo").push(food)
-```
-
-## 🚀 Quick Start
-
-### 🎫 Get Ticket (Install)
-
-::: code-group
-
-```bash [pip]
+```bash
 pip install zoo-framework
 ```
 
-```bash [uv]
-uv pip install zoo-framework
-```
-
-:::
-
-### 🏗️ Build Your Zoo (Create Project)
-
-```bash
-# 🏗️ Create your zoo
-zfc --create my_zoo
-cd my_zoo
-
-# 🦁 Add animals
-zfc --worker lion
-zfc --worker monkey
-zfc --worker sloth
-```
-
-### 🦁 Raise a Lion
-
 ```python
-# workers/lion_worker.py
+from zoo_framework.core import Master
 from zoo_framework.workers import BaseWorker
 
-class LionWorker(BaseWorker):  # 🦁 Lion
+class Inspector(BaseWorker):
     def __init__(self):
-        super().__init__({
-            "name": "🦁 LionKing",
-            "is_loop": True,
-            "delay_time": 2  # ⏱️ Patrol every 2 seconds
-        })
-    
+        super().__init__({"name": "inspector", "is_loop": True, "delay_time": 2})
+
     def _execute(self):
-        print("🦁 Roar! I'm the Lion King, handling high priority tasks!")
+        print("patrol")
+
+master = Master()
+master.register_worker("Inspector", Inspector)
+master.run()
 ```
 
-### 🎪 Open the Zoo
+`is_loop` is a read-only property backed by `_props` as the single source of truth; `delay_time` is the idle seconds after each run. Registration goes through `Master.register_worker` — the deprecated `@worker` decorator writes a legacy registry that Master never reads.
+
+## Events and reactors
 
 ```python
-# main.py
-from zoo_framework.core import Master
+from zoo_framework.core import event
 
-if __name__ == "__main__":
-    print("🎪 Zoo is opening!")
-    master = Master()
-    master.run()  # 🎉 All animals start working
+@event("change_test_number")
+def on_change_test_number(data):
+    print(f"number changed: {data}")
 ```
 
-Output:
-```
-🎪 Zoo is opening!
-🦁 Roar! I'm the Lion King, handling high priority tasks!
-🦁 Roar! I'm the Lion King, handling high priority tasks!
-```
+`@event(topic, channel="default")` wraps the function into an event reactor bound to the channel at import time. Producers build an `EventNode` and push it through `EventProvider().push(...)`, the `EventWorker` drains all channels.
 
-## 🗺️ Zoo Map
+## Performance baseline
 
-```mermaid
-mindmap
-  root((🎪 Zoo Framework))
-    🦁 Worker Animals
-      🦁 Lion - High Priority
-      🐒 Monkey - Normal Tasks
-      🦥 Sloth - Delayed Execution
-      🦅 Eagle - Event Response
-      🐘 Elephant - State Management
-    🏠 Cage System
-      🔒 Safety Protection
-      🔄 Lifecycle
-      📢 Communication
-    👨‍💼 Master Zookeeper
-      🌅 Morning Check
-      🍖 Feeding
-      🔄 Patrolling
-      📊 Recording
-    🍖 Event Food
-      📊 FIFO Queue
-      ⭐ Priority Sort
-      ⏰ Delayed Feeding
-    🗺️ State Chart
-      📝 Mood Changes
-      🔄 State Transitions
-      💾 Memory Storage
-```
+From `bench/` (Rust feasibility PoC plus pure-Python optimization measurements; data and decision rationale in bench/DECISION.md):
 
-## 📚 Guide
+- Framework overhead as a share of end-to-end latency drops quickly as the task body grows (cpu-1x 70.8% → cpu-100x 4.3%, Windows measurement).
+- Four pure-Python optimization paths measured 12×–800× speedups (dropping gevent from the event pipeline, the `ThreadSafeDict` lock, FIFO→deque, enabling the worker pool by default).
+- A Rust scheduler is a no-go: GIL-bound, measured at most 1.67× — far less than the pure-Python items.
 
-### 🔰 Getting Started
-- [🎫 Quick Start](/en/start/) - Become a zookeeper in 5 minutes
-- [🏗️ Build Your Zoo](/en/start/new.html) - Create your first zoo
-- [🗺️ Zoo Layout](/en/guide/structure.html) - Understand zoo structure
+![bench report](/bench/report-overview.png)
 
-### 🦁 Meet the Animals
-- [🦁 Worker Animals](/en/core/worker.html) - Learn about different animals
-- [🍖 Event Food System](/en/core/event.html) - How to feed animals
-- [🗺️ State Charts](/en/core/statemachine.html) - Animal mood changes
-- [📊 FIFO Zookeeper](/en/core/fifo.html) - Food distribution
-- [🏠 Cage](/en/core/cage.html) - Animal homes
+Full report: [full-page bench screenshot](/bench/report-full.png).
 
-### 🎪 Advanced Training
-- [✂️ AOP Training](/en/advanced/aop.html)
-- [⚡ Reactor Training](/en/advanced/reactor.html)
-- [🔒 Cage Security](/en/advanced/lock.html)
-- [🔌 New Species](/en/advanced/plugin.html)
+## Links
 
-## 🌟 Why Zoo Framework?
-
-### 🎪 Fun Programming Experience
-
-Traditional threading: Boring Thread management  
-**Zoo Framework**: Fun zoo management! 🎪
-
-```python
-# ❌ Traditional: boring
-import threading
-t = threading.Thread(target=func)
-t.start()
-
-# ✅ Zoo Framework: fun!
-class LionWorker(BaseWorker):  # 🦁 I'm a lion!
-    def _execute(self):
-        print("Roar!")
-```
-
-### 🧠 Easy to Understand
-
-| 🎪 Zoo Concept | 💻 Programming Concept |
-|--------------|------------|
-| 🦁 Animal | Worker |
-| 🏠 Cage | Cage Thread Management |
-| 👨‍💼 Zookeeper | Master Scheduler |
-| 🍖 Food | Event |
-| 📊 Zookeeper | FIFO Queue |
-| 🗺️ State Chart | StateMachine |
-
-### 🛡️ Safe and Reliable
-
-- 🔒 Cage protects thread safety
-- 👨‍💼 Master monitors everything
-- 📊 Comprehensive logging and monitoring
-
-## 🤝 Become a Zookeeper
-
-Welcome to join the Zoo Framework community!
-
-[GitHub](https://github.com/YearsAlso/zoo-framework) | [Issues](https://github.com/YearsAlso/zoo-framework/issues) | [Docs](https://github.com/YearsAlso/zoo-framework-doc)
-
----
-
-<p align="center">
-  🎪 Made with ❤️ by Zoo Framework Team 🦁
-</p>
+- [GitHub repository](https://github.com/YearsAlso/zoo-framework)
+- [Issues](https://github.com/YearsAlso/zoo-framework/issues)
+- [Docs repository](https://github.com/YearsAlso/zoo-framework-doc)

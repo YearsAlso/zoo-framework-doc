@@ -2,22 +2,22 @@
 outline: deep
 ---
 
-# 👷 Worker 工作器
+# Worker 工作器
 
 Worker 是 Zoo Framework 的核心概念，代表一个可执行的逻辑单元。
 
-## 🎯 基本概念
+## 基本概念
 
 Worker 类似于线程，但提供了更高级的生命周期管理：
 
-| ✨ 特性 | 📝 说明 |
+| 特性 | 说明| 
 |---------|---------|
-| 🔄 自动调度 | 由 Waiter 统一管理执行 |
-| 🔄 生命周期回调 | 支持初始化、执行、销毁等阶段 |
-| 📊 状态管理 | 内置运行状态跟踪 |
-| 📦 结果收集 | 支持执行结果返回 |
+| 自动调度 | 由 Waiter 统一管理执行| 
+| 生命周期回调 | 支持初始化、执行、销毁等阶段| 
+| 状态管理 | 内置运行状态跟踪| 
+| 结果收集 | 支持执行结果返回| 
 
-## 🏗️ Worker 类层次
+## Worker 类层次
 
 ```mermaid
 classDiagram
@@ -51,21 +51,21 @@ classDiagram
     BaseWorker <|-- MyWorker
 ```
 
-## 📋 BaseWorker
+## BaseWorker
 
 所有 Worker 都继承自 `BaseWorker`。
 
-### 📊 属性
+### 属性
 
-| 🏷️ 属性 | 📋 类型 | 📝 说明 |
+| 属性 | 类型 | 说明| 
 |---------|---------|---------|
-| `is_loop` | ✅ bool | 是否循环执行 |
-| `delay_time` | ⏱️ float | 执行间隔（秒）|
-| `name` | 🏷️ str | Worker 名称 |
-| `is_running` | 🔄 bool | 是否正在运行 |
-| `props` | 📦 WorkerProps | Worker 属性对象 |
+| `is_loop` | bool | 是否循环执行| 
+| `delay_time` | float | 执行间隔（秒）|
+| `name` | str | Worker 名称| 
+| `is_running` | bool | 是否正在运行| 
+| `props` | WorkerProps | Worker 属性对象| 
 
-### 🔧 方法
+### 方法
 
 #### `__init__(props)` - 初始化
 
@@ -75,61 +75,61 @@ from zoo_framework.workers import BaseWorker
 class MyWorker(BaseWorker):
     def __init__(self):
         super().__init__({
-            "is_loop": True,      # 🔄 循环执行
-            "delay_time": 1.0,    # ⏱️ 每秒执行一次
-            "name": "MyWorker"    # 🏷️ Worker 名称
+            "is_loop": True,      # 循环执行
+            "delay_time": 1.0,    # 每秒执行一次
+            "name": "MyWorker"    # Worker 名称
         })
 ```
 
-#### `_execute()` - 执行业务逻辑（⚡ 必须实现）
+#### `_execute()` - 执行业务逻辑（ 必须实现）
 
 ```python
 def _execute(self):
-    # ⚡ 在这里编写业务逻辑
-    print("✨ 执行业务逻辑")
+    # 在这里编写业务逻辑
+    print(" 执行业务逻辑")
 ```
 
 #### `_destroy(result)` - 销毁回调
 
 ```python
 def _destroy(self, result):
-    # 🗑️ Worker 停止时调用
-    print(f"👋 Worker stopped: {result}")
+    # Worker 停止时调用
+    print(f" Worker stopped: {result}")
 ```
 
 #### `stop()` - 停止 Worker
 
 ```python
-worker.stop()  # 🛑 停止 Worker
+worker.stop()  # 停止 Worker
 ```
 
-## 🎭 Worker 类型
+## Worker 类型
 
-### 1️⃣ 循环 Worker
+### 1⃣ 循环 Worker
 
 持续执行的 Worker：
 
 ```python
 class LoopWorker(BaseWorker):
     """
-    🔄 循环 Worker - 持续执行任务
+     循环 Worker - 持续执行任务
     """
     def __init__(self):
         super().__init__({
-            "is_loop": True,       # 🔄 循环执行
-            "delay_time": 5,       # ⏱️ 每 5 秒执行一次
-            "name": "LoopWorker"   # 🏷️ 名称
+            "is_loop": True,       # 循环执行
+            "delay_time": 5,       # 每 5 秒执行一次
+            "name": "LoopWorker"   # 名称
         })
     
     def _execute(self):
-        # ⚡ 定期任务
-        print("⏰ 执行定期任务")
+        # 定期任务
+        print(" 执行定期任务")
 ```
 
 ```mermaid
 sequenceDiagram
-    participant W as 🔄 LoopWorker
-    participant T as ⏱️ Timer
+    participant W as  LoopWorker
+    participant T as  Timer
     
     loop is_loop=True
         W->>W: _execute()
@@ -137,27 +137,27 @@ sequenceDiagram
     end
 ```
 
-### 2️⃣ 单次 Worker
+### 2⃣ 单次 Worker
 
 只执行一次的 Worker：
 
 ```python
 class OneTimeWorker(BaseWorker):
     """
-    ▶️ 单次 Worker - 只执行一次
+     单次 Worker - 只执行一次
     """
     def __init__(self):
         super().__init__({
-            "is_loop": False,        # 🔴 只执行一次
-            "name": "OneTimeWorker"  # 🏷️ 名称
+            "is_loop": False,        # 只执行一次
+            "name": "OneTimeWorker"  # 名称
         })
     
     def _execute(self):
-        # ⚡ 初始化任务
-        print("🚀 执行初始化")
+        # 初始化任务
+        print(" 执行初始化")
 ```
 
-### 3️⃣ 事件驱动 Worker
+### 3⃣ 事件驱动 Worker
 
 响应事件的 Worker：
 
@@ -167,33 +167,33 @@ from zoo_framework.event import EventChannelManager
 
 class MyEventWorker(EventWorker):
     """
-    📬 事件驱动 Worker
+     事件驱动 Worker
     """
     def __init__(self):
         super().__init__()
         self.channel = EventChannelManager.get_channel("events")
     
     def _execute(self):
-        # 📥 获取事件
-        event = self.channel.pop()
+        # 获取事件
+        event = self.channel.pop_value()
         if event:
             self.handle_event(event)
     
     def handle_event(self, event):
         """
-        📬 处理事件
+         处理事件
         """
-        print(f"📨 处理事件: {event.topic}")
+        print(f" 处理事件: {event.topic}")
 ```
 
 ```mermaid
 graph LR
-    A[📤 Producer] -->|push| B[(📊 EventFIFO)]
-    B -->|pop| C[📬 EventWorker]
-    C -->|process| D[📦 Result]
+    A[ Producer] -->|push| B[( EventFIFO)]
+    B -->|pop| C[ EventWorker]
+    C -->|process| D[ Result]
 ```
 
-### 4️⃣ 状态机 Worker
+### 4⃣ 状态机 Worker
 
 管理状态机的 Worker：
 
@@ -203,7 +203,7 @@ from zoo_framework.statemachine import StateMachineManager
 
 class MyStateWorker(StateMachineWorker):
     """
-    🔄 状态机 Worker
+     状态机 Worker
     """
     def __init__(self):
         super().__init__()
@@ -216,9 +216,9 @@ class MyStateWorker(StateMachineWorker):
         sm.add_state("my_machine", "running")
 ```
 
-## 💡 完整示例
+## 完整示例
 
-### ⏰ 定时任务 Worker
+### 定时任务 Worker
 
 ```python
 from zoo_framework.workers import BaseWorker
@@ -228,14 +228,14 @@ import datetime
 
 class ScheduledTaskWorker(BaseWorker):
     """
-    📅 定时任务 Worker
+     定时任务 Worker
     每天凌晨执行任务
     """
     
     def __init__(self):
         super().__init__({
             "is_loop": True,
-            "delay_time": 60,  # ⏱️ 每分钟检查一次
+            "delay_time": 60,  # 每分钟检查一次
             "name": "ScheduledTaskWorker"
         })
         self.last_run_date = None
@@ -243,7 +243,7 @@ class ScheduledTaskWorker(BaseWorker):
     def _execute(self):
         now = datetime.datetime.now()
         
-        # 🕛 每天凌晨 0:00 执行
+        # 每天凌晨 0:00 执行
         if now.hour == 0 and now.minute == 0:
             if self.last_run_date != now.date():
                 self.run_daily_task()
@@ -251,15 +251,15 @@ class ScheduledTaskWorker(BaseWorker):
     
     def run_daily_task(self):
         """
-        📋 每日任务
+         每日任务
         """
-        LogUtils.info("🌅 执行每日任务")
-        # 🧹 清理日志
-        # 📊 生成报表
-        # 💾 备份数据
+        LogUtils.info(" 执行每日任务")
+        # 清理日志
+        # 生成报表
+        # 备份数据
 ```
 
-### 📊 数据处理 Worker
+### 数据处理 Worker
 
 ```python
 from zoo_framework.workers import BaseWorker
@@ -268,21 +268,21 @@ from zoo_framework.fifo import EventFIFO
 
 class DataProcessorWorker(BaseWorker):
     """
-    ⚙️ 数据处理 Worker
+     数据处理 Worker
     """
     
     def __init__(self):
         super().__init__({
             "is_loop": True,
-            "delay_time": 0.1,  # ⚡ 快速处理
+            "delay_time": 0.1,  # 快速处理
             "name": "DataProcessorWorker"
         })
         self.input_queue = EventFIFO()
         self.processed_count = 0
     
     def _execute(self):
-        # 📥 从队列获取数据
-        node = self.input_queue.pop()
+        # 从队列获取数据
+        node = self.input_queue.pop_value()
         
         if node:
             result = self.process(node.content)
@@ -291,26 +291,26 @@ class DataProcessorWorker(BaseWorker):
     
     def process(self, data):
         """
-        ⚙️ 处理数据
+         处理数据
         """
         return data.upper()
     
     def save_result(self, result):
         """
-        💾 保存结果
+         保存结果
         """
         pass
 ```
 
 ```mermaid
 flowchart LR
-    A[📥 Input] -->|push| B[(📊 Queue)]
-    B -->|pop| C[⚙️ Processor]
-    C -->|process| D[📤 Output]
-    C -.->|stats| E[📊 Metrics]
+    A[ Input] -->|push| B[( Queue)]
+    B -->|pop| C[ Processor]
+    C -->|process| D[ Output]
+    C -.->|stats| E[ Metrics]
 ```
 
-### 🔄 带重试机制的 Worker
+### 带重试机制的 Worker
 
 ```python
 from zoo_framework.workers import BaseWorker
@@ -320,7 +320,7 @@ import time
 
 class RetryableWorker(BaseWorker):
     """
-    🔄 带重试机制的 Worker
+     带重试机制的 Worker
     """
     
     def __init__(self):
@@ -335,33 +335,33 @@ class RetryableWorker(BaseWorker):
         for attempt in range(self.max_retries):
             try:
                 self.do_work()
-                break  # ✅ 成功则退出重试
+                break  # 成功则退出重试
             except Exception as e:
-                LogUtils.warning(f"🔄 重试 {attempt + 1}/{self.max_retries}: {e}")
+                LogUtils.warning(f" 重试 {attempt + 1}/{self.max_retries}: {e}")
                 if attempt < self.max_retries - 1:
-                    time.sleep(2 ** attempt)  # 📈 指数退避
+                    time.sleep(2 ** attempt)  # 指数退避
                 else:
-                    LogUtils.error("❌ 所有重试失败")
+                    LogUtils.error(" 所有重试失败")
     
     def do_work(self):
         """
-        ⚡ 可能失败的操作
+         可能失败的操作
         """
         pass
 ```
 
 ```mermaid
 flowchart TD
-    A[🔄 Start] --> B{Attempt < Max?}
-    B -->|Yes| C[⚡ Execute]
+    A[ Start] --> B{Attempt < Max?}
+    B -->|Yes| C[ Execute]
     C --> D{Success?}
-    D -->|Yes| E[✅ Done]
-    D -->|No| F[⏱️ Backoff]
+    D -->|Yes| E[ Done]
+    D -->|No| F[ Backoff]
     F --> B
-    B -->|No| G[❌ Failed]
+    B -->|No| G[ Failed]
 ```
 
-## 📝 Worker 注册
+## Worker 注册
 
 Worker 需要在 `workers/__init__.py` 中导入才能被自动注册：
 
@@ -374,71 +374,71 @@ from .retryable_worker import RetryableWorker
 
 ```mermaid
 graph TD
-    A[📁 workers/__init__.py] -->|import| B[👷 Worker 1]
-    A -->|import| C[👷 Worker 2]
-    A -->|import| D[👷 Worker 3]
-    B -->|register| E[🎛️ WorkerRegister]
+    A[ workers/__init__.py] -->|import| B[ Worker 1]
+    A -->|import| C[ Worker 2]
+    A -->|import| D[ Worker 3]
+    B -->|register| E[ WorkerRegister]
     C -->|register| E
     D -->|register| E
-    E -->|get_all| F[🎛️ Master]
+    E -->|get_all| F[ Master]
 ```
 
-## ✅ 最佳实践
+## 最佳实践
 
-### 1️⃣ 合理设置 delay_time
+### 1⃣ 合理设置 delay_time
 
-| 📝 任务类型 | ⏱️ delay_time | 📝 说明 |
+| 任务类型 | delay_time | 说明| 
 |-------------|---------------|---------|
-| ⚡ 高频任务 | 0.01-0.1s | 实时数据处理 |
-| 🔄 中频任务 | 1-5s | 定时检查 |
-| 📅 低频任务 | 60+s | 报表生成 |
+| 高频任务 | 0.01-0.1s | 实时数据处理| 
+| 中频任务 | 1-5s | 定时检查| 
+| 低频任务 | 60+s | 报表生成| 
 
-### 2️⃣ 异常处理
+### 2⃣ 异常处理
 
 ```python
 def _execute(self):
     try:
-        # ⚡ 业务逻辑
+        # 业务逻辑
         pass
     except Exception as e:
-        LogUtils.error(f"❌ Worker error: {e}")
-        # 🛑 可选：停止 Worker
+        LogUtils.error(f" Worker error: {e}")
+        # 可选：停止 Worker
         # self.stop()
 ```
 
-### 3️⃣ 资源清理
+### 3⃣ 资源清理
 
 ```python
 def _destroy(self, result):
     """
-    🗑️ 资源清理
+     资源清理
     """
-    # 🔒 关闭数据库连接
-    # 📁 释放文件句柄
-    # 🧹 清理临时数据
-    LogUtils.info(f"👋 Worker {self.name} destroyed")
+    # 关闭数据库连接
+    # 释放文件句柄
+    # 清理临时数据
+    LogUtils.info(f" Worker {self.name} destroyed")
 ```
 
-### 4️⃣ 状态监控
+### 4⃣ 状态监控
 
 ```python
 def _execute(self):
     import time
     start_time = time.time()
     
-    # ⚡ 执行业务逻辑
+    # 执行业务逻辑
     
     duration = time.time() - start_time
-    LogUtils.debug(f"⏱️ Worker {self.name} executed in {duration:.3f}s")
+    LogUtils.debug(f" Worker {self.name} executed in {duration:.3f}s")
 ```
 
-## 📊 Worker 执行流程
+## Worker 执行流程
 
 ```mermaid
 sequenceDiagram
-    participant M as 🎛️ Master
-    participant W as 🎛️ Waiter
-    participant Wr as 👷 Worker
+    participant M as  Master
+    participant W as  Waiter
+    participant Wr as  Worker
     
     M->>M: create_workers()
     M->>W: call_workers(workers)
