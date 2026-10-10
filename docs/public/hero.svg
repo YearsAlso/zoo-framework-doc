@@ -1,13 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320" role="img" aria-label="Zoo Framework">
   <title>Zoo Framework</title>
-  <!-- 首页 hero 专用：与 favicon.svg 同一构造（实底方块 + 三条），
-       但画布为 320，避免小尺寸资产（32×32）的固有尺寸把 hero 图缩成 32px。
-       选实底方块而非描边环：hero 图位不支持深浅两套（VitePress 只给 logo 提供 light/dark），
-       实底色块的边缘对比度在任何底色上都成立。 -->
-  <rect x="30" y="30" width="260" height="260" rx="62" fill="#223344"/>
+  <!-- 首页 hero 专用图。
+       几何是唯一真源 docs/public/favicon.svg（viewBox 32）的 **×10 精确缩放**，
+       不另起炉灶 —— 标识构造（实底方块 + 三条横向左对齐的条）只有一份定义。
+
+       为什么是实底方块而非描边环：hero 图位不支持深浅两套（VitePress 只给 logo
+       提供 light/dark），实底色块的边缘对比度在任何底色上都成立。
+
+       为什么画布是 320：favicon.svg 的固有尺寸是 32×32，若直接用它当 hero 图，
+       VitePress 只设 max-width 不会放大，它会按固有尺寸渲染成 32px。 -->
+  <rect x="15" y="15" width="290" height="290" rx="70" fill="#223344"/>
   <g stroke-linecap="round">
-    <rect x="96" y="118" width="26" height="84" rx="13" fill="#C9D6DE"/>
-    <rect x="147" y="86"  width="26" height="116" rx="13" fill="#33aa99"/>
-    <rect x="198" y="140" width="26" height="62" rx="13" fill="#C9D6DE"/>
+    <rect x="85" y="98"  width="110" height="34" rx="17" fill="#C9D6DE"/>
+    <rect x="85" y="144" width="145" height="34" rx="17" fill="#33aa99"/>
+    <rect x="85" y="190" width="80"  height="34" rx="17" fill="#C9D6DE"/>
   </g>
 </svg>
