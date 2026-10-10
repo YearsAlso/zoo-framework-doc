@@ -35,14 +35,6 @@ features:
     details: 跨机器 → Celery；多进程未实现；cron 表达式不支持；健康监控指标链路尚未接通
 ---
 
-## 定位
-
-Zoo Framework 让你在**自己的进程里**运行长期存活的后台任务：你定义一个 Worker 类，
-框架负责注册、调度、在飞去重、超时熔断、事件分发与优雅停机。调度模型
-（`thread` / `thread_pool`）通过配置切换，Worker 代码不用改。
-
-**不需要 broker，不需要 Redis，不需要 cron 守护进程。**
-
 ## 核心组件
 
 | 组件 | 职责 |

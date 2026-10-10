@@ -26,101 +26,55 @@ export default defineConfig({
           { text: '核心概念', link: '/core/worker' },
           { text: 'API', link: '/api/core' },
         ],
-        sidebar: {
-          '/': [
-            {
-              text: '快速开始',
-              collapsed: false,
-              items: [
-                { text: '安装与上手', link: '/start/' },
-                { text: '项目结构', link: '/start/new' },
-              ]
-            },
-            {
-              text: '基础指南',
-              collapsed: false,
-              items: [
-                { text: '项目结构', link: '/guide/structure' },
-                { text: '配置说明', link: '/guide/configuration' },
-              ]
-            },
-          ],
-          '/start/': [
-            {
-              text: '快速开始',
-              collapsed: false,
-              items: [
-                { text: '安装与上手', link: '/start/' },
-                { text: '项目结构', link: '/start/new' },
-              ]
-            },
-            {
-              text: '基础指南',
-              collapsed: false,
-              items: [
-                { text: '项目结构', link: '/guide/structure' },
-                { text: '配置说明', link: '/guide/configuration' },
-              ]
-            },
-          ],
-          '/guide/': [
-            {
-              text: '基础指南',
-              collapsed: false,
-              items: [
-                { text: '项目结构', link: '/guide/structure' },
-                { text: '配置说明', link: '/guide/configuration' },
-              ]
-            },
-          ],
-          '/core/': [
-            {
-              text: '核心概念',
-              collapsed: false,
-              items: [
-                { text: 'Worker（任务单元）', link: '/core/worker' },
-                { text: '容器（ScopedContainer）', link: '/core/cage' },
-                { text: '事件管道', link: '/core/event' },
-                { text: '状态机', link: '/core/statemachine' },
-                { text: 'FIFO 队列', link: '/core/fifo' },
-                { text: '调度（Waiter）', link: '/core/waiter' },
-              ]
-            },
-            {
-              text: '高级特性',
-              collapsed: false,
-              items: [
-                { text: 'AOP 切面', link: '/advanced/aop' },
-                { text: 'Reactor 响应器', link: '/advanced/reactor' },
-                { text: '锁与线程安全', link: '/advanced/lock' },
-                { text: '插件系统', link: '/advanced/plugin' },
-              ]
-            },
-          ],
-          '/advanced/': [
-            {
-              text: '高级特性',
-              collapsed: false,
-              items: [
-                { text: 'AOP 切面', link: '/advanced/aop' },
-                { text: 'Reactor 响应器', link: '/advanced/reactor' },
-                { text: '锁与线程安全', link: '/advanced/lock' },
-                { text: '插件系统', link: '/advanced/plugin' },
-              ]
-            },
-          ],
-          '/api/': [
-            {
-              text: 'API 参考',
-              collapsed: false,
-              items: [
-                { text: '核心 API', link: '/api/core' },
-                { text: '工具类', link: '/api/utils' },
-                { text: '常量定义', link: '/api/constant' },
-              ]
-            },
-          ],
+        sidebar: [
+        {
+          text: '快速开始',
+          collapsed: false,
+          items: [
+            { text: '安装与上手', link: '/start/' },
+            { text: '项目结构', link: '/start/new' },
+          ]
         },
+        {
+          text: '基础指南',
+          collapsed: false,
+          items: [
+            { text: '仓库布局', link: '/guide/structure' },
+            { text: '配置说明', link: '/guide/configuration' },
+          ]
+        },
+        {
+          text: '核心概念',
+          collapsed: false,
+          items: [
+            { text: 'Worker（任务单元）', link: '/core/worker' },
+            { text: '容器（ScopedContainer）', link: '/core/cage' },
+            { text: '事件管道', link: '/core/event' },
+            { text: '状态机', link: '/core/statemachine' },
+            { text: 'FIFO 队列', link: '/core/fifo' },
+            { text: '调度（Waiter）', link: '/core/waiter' },
+          ]
+        },
+        {
+          text: '高级特性',
+          collapsed: false,
+          items: [
+            { text: 'AOP 切面', link: '/advanced/aop' },
+            { text: 'Reactor 响应器', link: '/advanced/reactor' },
+            { text: '锁与线程安全', link: '/advanced/lock' },
+            { text: '插件系统', link: '/advanced/plugin' },
+          ]
+        },
+        {
+          text: 'API 参考',
+          collapsed: false,
+          items: [
+            { text: '核心 API', link: '/api/core' },
+            { text: '工具类', link: '/api/utils' },
+            { text: '常量定义', link: '/api/constant' },
+          ]
+        },
+      ],
         outline: {
           label: '页面导航'
         },
@@ -148,101 +102,55 @@ export default defineConfig({
           { text: 'Core Concepts', link: '/en/core/worker' },
           { text: 'API', link: '/en/api/core' },
         ],
-        sidebar: {
-          '/en/': [
-            {
-              text: 'Get Started',
-              collapsed: false,
-              items: [
-                { text: 'Quick Start', link: '/en/start/' },
-                { text: 'Create Project', link: '/en/start/new' },
-              ]
-            },
-            {
-              text: 'Guide',
-              collapsed: false,
-              items: [
-                { text: 'Project Structure', link: '/en/guide/structure' },
-                { text: 'Configuration', link: '/en/guide/configuration' },
-              ]
-            },
-          ],
-          '/en/start/': [
-            {
-              text: 'Get Started',
-              collapsed: false,
-              items: [
-                { text: 'Quick Start', link: '/en/start/' },
-                { text: 'Create Project', link: '/en/start/new' },
-              ]
-            },
-            {
-              text: 'Guide',
-              collapsed: false,
-              items: [
-                { text: 'Project Structure', link: '/en/guide/structure' },
-                { text: 'Configuration', link: '/en/guide/configuration' },
-              ]
-            },
-          ],
-          '/en/guide/': [
-            {
-              text: 'Guide',
-              collapsed: false,
-              items: [
-                { text: 'Project Structure', link: '/en/guide/structure' },
-                { text: 'Configuration', link: '/en/guide/configuration' },
-              ]
-            },
-          ],
-          '/en/core/': [
-            {
-              text: 'Core Concepts',
-              collapsed: false,
-              items: [
-                { text: 'Worker', link: '/en/core/worker' },
-                { text: 'Cage', link: '/en/core/cage' },
-                { text: 'Event Pipeline', link: '/en/core/event' },
-                { text: 'State Machine', link: '/en/core/statemachine' },
-                { text: 'FIFO Queue', link: '/en/core/fifo' },
-                { text: 'Waiter', link: '/en/core/waiter' },
-              ]
-            },
-            {
-              text: 'Advanced',
-              collapsed: false,
-              items: [
-                { text: 'AOP', link: '/en/advanced/aop' },
-                { text: 'Reactor', link: '/en/advanced/reactor' },
-                { text: 'Lock', link: '/en/advanced/lock' },
-                { text: 'Plugin', link: '/en/advanced/plugin' },
-              ]
-            },
-          ],
-          '/en/advanced/': [
-            {
-              text: 'Advanced',
-              collapsed: false,
-              items: [
-                { text: 'AOP', link: '/en/advanced/aop' },
-                { text: 'Reactor', link: '/en/advanced/reactor' },
-                { text: 'Lock', link: '/en/advanced/lock' },
-                { text: 'Plugin', link: '/en/advanced/plugin' },
-              ]
-            },
-          ],
-          '/en/api/': [
-            {
-              text: 'API Reference',
-              collapsed: false,
-              items: [
-                { text: 'Core API', link: '/en/api/core' },
-                { text: 'Utils', link: '/en/api/utils' },
-                { text: 'Constants', link: '/en/api/constant' },
-              ]
-            },
-          ],
+        sidebar: [
+        {
+          text: 'Get Started',
+          collapsed: false,
+          items: [
+            { text: 'Installation & Quick Start', link: '/en/start/' },
+            { text: 'Project Structure', link: '/en/start/new' },
+          ]
         },
+        {
+          text: 'Guide',
+          collapsed: false,
+          items: [
+            { text: 'Repository Layout', link: '/en/guide/structure' },
+            { text: 'Configuration', link: '/en/guide/configuration' },
+          ]
+        },
+        {
+          text: 'Core Concepts',
+          collapsed: false,
+          items: [
+            { text: 'Worker', link: '/en/core/worker' },
+            { text: 'Container (ScopedContainer)', link: '/en/core/cage' },
+            { text: 'Event Pipeline', link: '/en/core/event' },
+            { text: 'State Machine', link: '/en/core/statemachine' },
+            { text: 'FIFO Queue', link: '/en/core/fifo' },
+            { text: 'Scheduler (Waiter)', link: '/en/core/waiter' },
+          ]
+        },
+        {
+          text: 'Advanced',
+          collapsed: false,
+          items: [
+            { text: 'AOP', link: '/en/advanced/aop' },
+            { text: 'Reactor', link: '/en/advanced/reactor' },
+            { text: 'Locking', link: '/en/advanced/lock' },
+            { text: 'Plugins', link: '/en/advanced/plugin' },
+          ]
+        },
+        {
+          text: 'API Reference',
+          collapsed: false,
+          items: [
+            { text: 'Core API', link: '/en/api/core' },
+            { text: 'Utils', link: '/en/api/utils' },
+            { text: 'Constants', link: '/en/api/constant' },
+          ]
+        },
+      ],
         outline: {
           label: 'On this page'
         },

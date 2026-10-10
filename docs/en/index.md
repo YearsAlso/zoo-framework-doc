@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Zoo Framework"
   text: "Python multithreading framework"
-  tagline: Concurrency primitives organized around a zoo metaphor — Workers are the animals, ScopedContainer is their cage, Master runs the park
+  tagline: Long-lived background tasks in your own process — scheduled, observable, stateful, with no broker and no cron daemon
   # hero 的图位应当放**图形**，不能放已含字标的锁定图——
   # 否则 H1 的 name 文字与图上的 "zoo framework" 会在同一屏出现两次。
   # 这里用小尺寸变体：实底方块 + 三条，是唯一在深浅两种主题下都保持对比度的版本
@@ -35,21 +35,21 @@ features:
     details: Plugin ABC with dependency-ordered loading, plus fixed / exponential / adaptive delay strategies
 ---
 
-## Positioning
+## Core components
 
-Zoo Framework is a Python 3.13+ multithreading framework: you define Worker classes, the framework handles registration, scheduling, parameter resolution, event dispatch and shutdown. The scheduling model (thread pool vs thread-per-task) is a config switch; Worker code does not change.
+| Component | Role |
+|---|---|
+| `BaseWorker` | Task execution unit; you implement `_execute()` |
+| `Master` | Lifecycle entry point: load config, register Workers, run, shut down |
+| `core/waiter/` | The scheduler; `worker:mode` picks the execution model |
+| `ScopedContainer` | Scoped container (process / session / prototype) that **never replaces the class** |
+| `EventNode` / `EventChannel` | In-process event pipeline |
+| `EventFIFO` | One independent queue per channel |
+| `StateMachineManager` | Read/write state by scope + key path, with persistence |
 
-## Concept mapping
-
-The zoo metaphor is the framework's naming system:
-
-| Zoo | Framework | Role |
-|---|---|---|
-| Animal | `BaseWorker` | Task execution unit |
-| Cage | `ScopedContainer` | Scoped shared instances |
-| Zookeeper | `Master` | Lifecycle & scheduling |
-| Food | `EventNode` | Inter-worker message |
-| Feeder queue | FIFO / EventChannel | Ordered event queue |
+> **On naming:** the project name and some legacy identifiers use a zoo metaphor
+> (`Worker` / `Master` / `Cage` / `Event`). **The metaphor affects naming only, not semantics** —
+> the table above uses functional names.
 
 ## Quick start
 
