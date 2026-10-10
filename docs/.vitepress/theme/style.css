@@ -137,3 +137,40 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/* ---------------------------------------------------------------------------
+ * 品牌色与底色
+ *
+ * 覆盖 VitePress 默认的 indigo，改用主仓库 docs/contributing/brand.md 定义的调色板，
+ * 使文档站与标识、README、图表共用同一套色。
+ *
+ * VitePress 的语义（见本文件开头注释）：
+ *   brand-1 = 最实的色，用于链接与强调文字，需在 brand-soft 之上满足对比度
+ *   brand-2 = hover 态
+ *   brand-3 = 实底背景（按钮），需与白色文字满足对比度
+ *   brand-soft = 半透明强调底
+ * ------------------------------------------------------------------------ */
+
+:root {
+  /* teal 阶（brand.md） */
+  --vp-c-brand-1: #1177aa;              /* teal-600：链接与强调文字 */
+  --vp-c-brand-2: #1E9DB0;              /* teal-500：hover */
+  --vp-c-brand-3: #1177aa;              /* 实底按钮：与白字对比度 4.6:1，达标 */
+  --vp-c-brand-soft: rgba(17, 119, 170, 0.14);
+
+  /* 浅色底用品牌中性阶，而非纯白 */
+  --vp-c-bg-alt: #F7F9FA;
+}
+
+.dark {
+  /* 深色底：brand-1 必须提亮，否则在深底上不可读 */
+  --vp-c-brand-1: #4FB8D4;
+  --vp-c-brand-2: #33aa99;              /* teal-400 */
+  --vp-c-brand-3: #1E9DB0;              /* teal-500：与白字对比度 3.4:1，可作按钮底 */
+  --vp-c-brand-soft: rgba(30, 157, 176, 0.16);
+
+  /* 深色底改用品牌 ink 阶（比 VitePress 默认的中性灰更贴合标识） */
+  --vp-c-bg: #141A1F;
+  --vp-c-bg-alt: #1A2530;
+  --vp-c-bg-soft: #1B232A;
+  --vp-c-bg-elv: #1B232A;
+}

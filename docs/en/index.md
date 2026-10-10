@@ -10,8 +10,10 @@ hero:
   # 这里用小尺寸变体：实底方块 + 三条，是唯一在深浅两种主题下都保持对比度的版本
   # （环版 mark.svg 是深靛蓝，在深色主题下几乎不可见）。
   image:
-    src: /favicon.svg
+    src: /hero.svg
     alt: Zoo Framework
+    width: 280
+    height: 280
   actions:
     - theme: brand
       text: Get Started
