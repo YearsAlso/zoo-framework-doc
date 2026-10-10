@@ -7,7 +7,10 @@ export default defineConfig({
   description: "Zoo Framework —— 进程内任务编排：调度、可观测、有状态，不需要 broker，不需要 cron 守护进程",
 
   head: [
-    ['link', { rel: 'icon', type: 'image/png', href: '/zoo-framework-doc/logo.png' }]
+    // 小尺寸专用变体：实底方块 + 三条，16px 下可辨
+    // （原先是 800x800 的整张锁定图，标签页里完全不可辨）
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/zoo-framework-doc/favicon.svg' }],
+    ['link', { rel: 'alternate icon', href: '/zoo-framework-doc/favicon.png' }]
   ],
 
   // 多语言配置
@@ -260,7 +263,9 @@ export default defineConfig({
 
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/logo.png',
+    // 仅图形的 mark（整张锁定图在导航栏尺寸下文字会糊），
+    // 深浅两套：mark.svg 是深靛蓝，在深色主题下不可见，故必须配上浅色变体
+    logo: { light: '/mark.svg', dark: '/mark-dark.svg' },
 
     siteTitle: 'Zoo Framework',
 
