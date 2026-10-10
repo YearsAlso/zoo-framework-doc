@@ -32,7 +32,7 @@ outline: deep
 
 ## 框架内部的进程级共享：`@process_scoped`
 
-框架内部需要进程级共享的管理器（`EventReactorManager`、`EventChannelManager`、`StateMachineManager` 等 8 处）统一使用 `@process_scoped` 装饰器注册。它的语义：**类保持真类**，`cls()` 返回进程级唯一实例：
+框架内部需要进程级共享的管理器（`EventReactorManager`、`EventChannelRegister`、`StateMachineManager` 等 8 处）统一使用 `@process_scoped` 装饰器注册。它的语义：**类保持真类**，`cls()` 返回进程级唯一实例：
 
 ```python
 from zoo_framework.core.container import ThreadSafety, process_scoped

@@ -4,120 +4,48 @@ Waiter 是 Zoo Framework 的核心调度组件，负责管理和执行 Worker。
 
 ## 概念
 
-Waiter 采用策略模式，根据不同的运行策略来调度 Worker：
+Waiter 是调度组件：按配置决定**执行模型**与**背压策略**，并把 Worker 派发出去。
 
-- **SimpleWaiter** - 简单调度，顺序执行
-- **StableWaiter** - 稳定调度，异常恢复
-- **SafeWaiter** - 安全调度，线程隔离
+> **三个 Waiter 子类 `SimpleWaiter` / `StableWaiter` / `SafeWaiter` 已被删除。**
+> 它们此前的唯一差异是"池尺寸不足时怎么办"，现已由 `worker:runPolicy` 参数承载
+> ——**不要再 `from zoo_framework.core.waiter import SimpleWaiter`**，那个导入会失败。
+> 迁移方式：删除该导入，改为在 `config.json` 里设置 `worker:runPolicy`。
 
-## 使用方式
-
-### 配置运行策略
-
-在 `config.json` 中配置：
+## 配置
 
 ```json
 {
   "worker": {
-    "runPolicy": "simple",
-    "pool": {
-      "size": 5,
-      "enabled": false
-    }
+    "mode": "thread_pool",
+    "runPolicy": "stable",
+    "pool": { "size": 16, "enable": true }
   }
 }
 ```
 
-策略选项：
-- `simple` - 简单调度（默认）
-- `stable` - 稳定调度
-- `safe` - 安全调度
+### `worker:mode` —— 执行模型
 
-## Waiter 类型
+`thread`（每次派发一个线程）或 `thread_pool`（有界线程池）。
 
-### SimpleWaiter
+### `worker:runPolicy` —— 背压策略
 
-最简单的调度器，顺序执行所有 Worker。
+**只影响 `thread_pool` 模式下池已满时的行为**：
 
-```python
-from zoo_framework.core.waiter import SimpleWaiter
+| 值 | 池满时 | 适合 |
+|---|---|---|
+| `"simple"` | 扩容 | 突发流量、任务短 |
+| `"stable"` | 排队 | 想限制并发但不丢任务 |
+| `"safe"` | 拒绝 | 宁可跳过也不要积压 |
 
-waiter = SimpleWaiter()
-waiter.call_workers(workers)
-waiter.execute_service()
-```
+无法识别的取值会抛 `ValueError`（不静默降级）。
 
-特点：
-- 单线程顺序执行
-- 简单高效
-- 适合简单场景
+## 继承 `BaseWaiter`
 
-### StableWaiter
+`BaseWaiter` 的公开方法是：`add_worker` / `call_workers` / `execute_service` /
+`get_worker_mode` / `register_handler` / `shutdown` / `validate_worker_mode`，
+外加 `workers` 与 `worker_props` 两个属性。
 
-稳定调度器，支持异常恢复。
+**本页不给出完整的自定义 Waiter 示例**：调度器的内部结构不是稳定的公开契约，
+写一份"看起来能跑"的示例会与上面三个子类一样很快失真。
+需要定制调度时，请提 issue 说明场景。
 
-```python
-from zoo_framework.core.waiter import StableWaiter
-
-waiter = StableWaiter()
-waiter.call_workers(workers)
-```
-
-特点：
-- 自动捕获异常
-- Worker 崩溃后自动重启
-- 保证系统稳定性
-
-### SafeWaiter
-
-安全调度器，线程隔离。
-
-```python
-from zoo_framework.core.waiter import SafeWaiter
-
-waiter = SafeWaiter()
-waiter.call_workers(workers)
-```
-
-特点：
-- 每个 Worker 独立线程
-- 线程间隔离
-- 适合 CPU 密集型任务
-
-## 自定义 Waiter
-
-```python
-from zoo_framework.core.waiter import BaseWaiter
-
-class CustomWaiter(BaseWaiter):
-    """自定义调度器"""
-    
-    def execute_service(self):
-        """执行服务"""
-        for name, worker in self.workers.items():
-            if worker.is_loop:
-                self.execute_loop_worker(worker)
-            else:
-                self.execute_once_worker(worker)
-    
-    def execute_loop_worker(self, worker):
-        """执行循环 Worker"""
-        while worker.is_running and worker.is_loop:
-            try:
-                worker.execute()
-                if worker.delay_time > 0:
-                    time.sleep(worker.delay_time)
-            except Exception as e:
-                self.handle_error(worker, e)
-    
-    def execute_once_worker(self, worker):
-        """执行单次 Worker"""
-        try:
-            worker.execute()
-        except Exception as e:
-            self.handle_error(worker, e)
-    
-    def handle_error(self, worker, error):
-        """处理错误"""
-        print(f"Worker {worker.name} error: {error}")
-```

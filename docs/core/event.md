@@ -104,16 +104,16 @@ node.set_response_mechanism(4, reactor_name="PaymentReactor")
 ### 获取通道
 
 ```python
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 
 # 获取默认通道
-default_channel = EventChannelManager.get_channel("default")
+default_channel = EventChannelRegister.get_channel("default")
 
 # 获取订单通道
-order_channel = EventChannelManager.get_channel("order")
+order_channel = EventChannelRegister.get_channel("order")
 
 # 获取支付通道
-payment_channel = EventChannelManager.get_channel("payment")
+payment_channel = EventChannelRegister.get_channel("payment")
 ```
 
 ### 通道操作
@@ -189,7 +189,7 @@ all_nodes = fifo.get_all()
 
 ```python
 from zoo_framework.workers import BaseWorker
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 from zoo_framework.fifo.node import EventNode
 from zoo_framework.utils import LogUtils
 import time
@@ -229,7 +229,7 @@ class ProducerWorker(BaseWorker):
         )
         
         # 发送到通道
-        channel = EventChannelManager.get_channel("order")
+        channel = EventChannelRegister.get_channel("order")
         channel.push_event(node)
         
         LogUtils.info(f" 生产: {topic} #{self.counter}")
@@ -248,7 +248,7 @@ class ConsumerWorker(BaseWorker):
         })
     
     def _execute(self):
-        channel = EventChannelManager.get_channel("order")
+        channel = EventChannelRegister.get_channel("order")
         node = channel.pop_value()
         
         if node:
@@ -322,7 +322,7 @@ class StateMachineEventWorker(BaseWorker):
         sm.add_effect("order", "paid", "shipped", self.on_shipped)
     
     def _execute(self):
-        channel = EventChannelManager.get_channel("order")
+        channel = EventChannelRegister.get_channel("order")
         node = channel.pop_value()
         
         if node:

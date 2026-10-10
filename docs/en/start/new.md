@@ -186,7 +186,7 @@ zfc --worker order_notifier
 ```python
 from zoo_framework.workers import BaseWorker
 from zoo_framework.utils import LogUtils
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 from zoo_framework.fifo.node import EventNode
 
 
@@ -213,7 +213,7 @@ class OrderReceiverWorker(BaseWorker):
             content=order,
             priority=50
         )
-        EventChannelManager.get_channel("order").push(node)
+        EventChannelRegister.get_channel("order").push(node)
 ```
 
 📄 `src/workers/order_processor_worker.py`:
@@ -221,7 +221,7 @@ class OrderReceiverWorker(BaseWorker):
 ```python
 from zoo_framework.workers import BaseWorker
 from zoo_framework.utils import LogUtils
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 
 
 class OrderProcessorWorker(BaseWorker):
@@ -238,7 +238,7 @@ class OrderProcessorWorker(BaseWorker):
     
     def _execute(self):
         # 📥 Get order from event channel
-        channel = EventChannelManager.get_channel("order")
+        channel = EventChannelRegister.get_channel("order")
         node = channel.pop()
         
         if node and node.topic == "order.received":
@@ -395,10 +395,10 @@ A: Use the event system:
 
 ```python
 # Worker A sends
-EventChannelManager.get_channel("channel_name").push(node)
+EventChannelRegister.get_channel("channel_name").push(node)
 
 # Worker B receives
-node = EventChannelManager.get_channel("channel_name").pop()
+node = EventChannelRegister.get_channel("channel_name").pop()
 ```
 
 ### Q: How to configure different config files for different environments?

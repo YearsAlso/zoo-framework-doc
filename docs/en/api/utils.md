@@ -17,8 +17,8 @@ LogUtils.error(message)
 from zoo_framework.utils import FileUtils
 
 FileUtils.file_exists(path)
-FileUtils.read_file(path)
-FileUtils.write_file(path, content)
+FileUtils.read_text(path)
+FileUtils.write_text(path, content)
 ```
 
 ## DateTimeUtils
@@ -26,8 +26,8 @@ FileUtils.write_file(path, content)
 ```python
 from zoo_framework.utils import DateTimeUtils
 
-DateTimeUtils.now()
-DateTimeUtils.format_timestamp(ts)
+DateTimeUtils.get_format_now()
+DateTimeUtils.get_format_datetime(ts)
 ```
 
 ## CmdUtils
@@ -35,7 +35,7 @@ DateTimeUtils.format_timestamp(ts)
 ```python
 from zoo_framework.utils import CmdUtils
 
-CmdUtils.execute(command)
+CmdUtils.cmd_read(command)
 ```
 
 ---

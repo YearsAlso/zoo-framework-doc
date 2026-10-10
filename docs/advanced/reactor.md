@@ -33,7 +33,7 @@ manager.register_reactor("sms", SMSReactor())
 ## 优先级响应
 
 ```python
-from zoo_framework.reactor import EventPriorities
+from zoo_framework.reactor.event_priorities import EventPriorities
 
 reactor = EventReactor(priority=EventPriorities.HIGH)
 ```
@@ -41,7 +41,7 @@ reactor = EventReactor(priority=EventPriorities.HIGH)
 ## 重试策略
 
 ```python
-from zoo_framework.reactor import EventRetryStrategy
+from zoo_framework.reactor.event_retry_strategy import EventRetryStrategy
 
 strategy = EventRetryStrategy(
     max_retries=3,

@@ -186,7 +186,7 @@ zfc --worker order_notifier
 ```python
 from zoo_framework.workers import BaseWorker
 from zoo_framework.utils import LogUtils
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 from zoo_framework.fifo.node import EventNode
 
 
@@ -213,7 +213,7 @@ class OrderReceiverWorker(BaseWorker):
             content=order,
             priority=50
         )
-        EventChannelManager.get_channel("order").push_event(node)
+        EventChannelRegister.get_channel("order").push_event(node)
 ```
 
  `src/workers/order_processor_worker.py`:
@@ -221,7 +221,7 @@ class OrderReceiverWorker(BaseWorker):
 ```python
 from zoo_framework.workers import BaseWorker
 from zoo_framework.utils import LogUtils
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 
 
 class OrderProcessorWorker(BaseWorker):
@@ -238,7 +238,7 @@ class OrderProcessorWorker(BaseWorker):
     
     def _execute(self):
         # 从事件通道获取订单
-        channel = EventChannelManager.get_channel("order")
+        channel = EventChannelRegister.get_channel("order")
         node = channel.pop_value()
         
         if node and node.topic == "order.received":
@@ -395,10 +395,10 @@ A: 使用事件系统：
 
 ```python
 # Worker A 发送
-EventChannelManager.get_channel("channel_name").push_event(node)
+EventChannelRegister.get_channel("channel_name").push_event(node)
 
 # Worker B 接收
-node = EventChannelManager.get_channel("channel_name").pop_value()
+node = EventChannelRegister.get_channel("channel_name").pop_value()
 ```
 
 ### Q: 如何配置不同环境的配置文件？

@@ -260,7 +260,7 @@ class MyWorker(BaseWorker):
 Event-driven mechanism:
 
 ```python
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 from zoo_framework.fifo import EventFIFO
 from zoo_framework.fifo.node import EventNode
 
@@ -272,7 +272,7 @@ node = EventNode(
 )
 
 # 📨 Send event
-EventChannelManager.get_channel("default").push(node)
+EventChannelRegister.get_channel("default").push(node)
 ```
 
 ### 🔄 State Machine

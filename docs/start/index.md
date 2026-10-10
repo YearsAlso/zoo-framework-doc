@@ -175,6 +175,6 @@ master.register_worker("MyWorker", MyWorker)            # ✓ 传类
 文中出现的每一处 API 都以 `zoo_framework` 的实际导出面为准。
 
 > **背景**：在本页改写之前，它包含数个**并不存在**的 API
-> （`EventChannelManager`、`StateMachineManager.create_state_machine` / `add_state` / `transfer`），
+> （`EventChannelRegister`、`StateMachineManager.create_state_machine` / `add_state` / `transfer`），
 > 以及一段**没有 `register_worker`** 的入口代码——照做的话程序什么都不会运行。
 > 这类错误在文字上是看不出来的，只能靠"跑一遍"发现。

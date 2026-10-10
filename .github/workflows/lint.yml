@@ -15,5 +15,23 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Run oxlint
+      - name: Run oxlint and brand asset check
         run: pnpm lint
+
+      # ---------------------------------------------------------------------
+      # API 引用校验：本仓库的 API 页是手写的（VitePress 用不了 mkdocstrings），
+      # 手写 + 无校验的结果就是漂移与编造——实测在引入本步骤之前有 26 处问题，
+      # 包括 `Master(loop_interval=1)`（无此参数）、`EventChannelManager`（不存在，
+      # 出现在 8 处）、`SimpleWaiter`（已删除的类）等。
+      # 这一步让"文档里提到的 API 必须真实存在"变成机器可拦截的约束。
+      # ---------------------------------------------------------------------
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install zoo-framework
+        run: pip install zoo-framework
+
+      - name: Check API references in docs
+        run: python scripts/check_api_references.py

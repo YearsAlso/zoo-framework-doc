@@ -163,7 +163,7 @@ class OneTimeWorker(BaseWorker):
 
 ```python
 from zoo_framework.workers import EventWorker
-from zoo_framework.event import EventChannelManager
+from zoo_framework.event import EventChannelRegister
 
 class MyEventWorker(EventWorker):
     """
@@ -171,7 +171,7 @@ class MyEventWorker(EventWorker):
     """
     def __init__(self):
         super().__init__()
-        self.channel = EventChannelManager.get_channel("events")
+        self.channel = EventChannelRegister.get_channel("events")
     
     def _execute(self):
         # 获取事件
