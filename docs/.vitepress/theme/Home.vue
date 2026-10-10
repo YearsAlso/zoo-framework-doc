@@ -1,10 +1,10 @@
 <template>
   <div class="holy-grail-container">
-    <!-- 动物园理念 - 圣杯布局 -->
+    <!-- 定位与架构 - 圣杯布局 -->
     <div class="zoo-concept-section">
       <div class="zoo-concept-header">
-        <h2>🎪 动物园理念</h2>
-        <p>Zoo Framework 的设计理念来自真实的动物园管理系统</p>
+        <h2>它解决什么</h2>
+        <p>把后台任务用裸 <code>threading</code> 拼出来，看起来二十行，实际会变成几百行 —— 而错的典型方式是<strong>静默</strong>的</p>
       </div>
 
       <div class="holy-grail-body">
@@ -24,10 +24,10 @@
 
         <!-- 中间：架构图 -->
         <div class="main-content">
-          <h3>🏛️ 动物园架构</h3>
+          <h3>整体架构</h3>
           <pre class="mermaid">
 graph TB
-    M[👨‍💼 Master 园长]
+    M[Master 生命周期入口]
 
     subgraph "🏠 Cage Area"
         C1[🦁 狮子笼]
@@ -69,10 +69,10 @@ graph TB
       </div>
     </div>
 
-    <!-- 动物类型 -->
+    <!-- 任务类型 -->
     <div class="animal-types-section">
       <div class="animal-types-header">
-        <h2>🦁 Worker 动物类型</h2>
+        <h2>五种任务类型</h2>
       </div>
       <div class="animal-cards">
         <div v-for="animal in animals" :key="animal.key" class="animal-card" :class="animal.key">
@@ -86,8 +86,8 @@ graph TB
     <!-- 快速开始 -->
     <div class="quick-start-section">
       <div class="quick-start-header">
-        <h2>🚀 快速入园</h2>
-        <p>只需 4 步，搭建属于你的动物园</p>
+        <h2>五分钟上手</h2>
+        <p>四步跑起第一个任务</p>
       </div>
       <div class="quick-steps">
         <div v-for="step in quickSteps" :key="step.key" class="quick-step">
@@ -127,7 +127,7 @@ graph TB
       <table class="mapping-table">
         <thead>
           <tr>
-            <th>🎪 动物园概念</th>
+            <th>你要解决的问题</th>
             <th>💻 编程概念</th>
           </tr>
         </thead>
@@ -142,10 +142,10 @@ graph TB
       </table>
     </div>
 
-    <!-- 游览指南 -->
+    <!-- 文档导航 -->
     <div class="guide-section">
       <div class="guide-header">
-        <h2>📚 游览指南</h2>
+        <h2>文档导航</h2>
       </div>
       <div class="guide-grid">
         <div v-for="box in guide" :key="box.key" class="guide-box">
@@ -173,86 +173,86 @@ graph TB
 
 <script setup lang="ts">
 const concepts = [
-  { key: 'worker', icon: '🦁', title: 'Worker', desc: '动物工作器' },
-  { key: 'cage', icon: '🏠', title: 'Cage', desc: '笼子管理' },
-  { key: 'master', icon: '👨‍💼', title: 'Master', desc: '园长大人' },
-  { key: 'event', icon: '🍖', title: 'Event', desc: '食物事件' },
-  { key: 'fifo', icon: '📊', title: 'FIFO', desc: '饲养员队列' },
-  { key: 'state', icon: '🗺️', title: 'State', desc: '状态图' }
+  { key: 'worker', icon: '🧩', title: 'Worker', desc: '任务执行单元' },
+  { key: 'cage', icon: '📦', title: 'ScopedContainer', desc: '作用域容器' },
+  { key: 'master', icon: '🎛️', title: 'Master', desc: '生命周期入口' },
+  { key: 'event', icon: '📨', title: 'Event', desc: '进程内事件管道' },
+  { key: 'fifo', icon: '🗂️', title: 'FIFO', desc: '按通道隔离的队列' },
+  { key: 'state', icon: '💾', title: 'StateMachine', desc: '状态读写与持久化' }
 ]
 
 const workflow = [
-  { num: 1, title: '🌅 晨检', desc: 'Master 检查所有 Worker 状态' },
-  { num: 2, title: '🍖 喂食', desc: 'FIFO 按优先级分发 Event' },
-  { num: 3, title: '🔄 工作', desc: 'Worker 在 Cage 中执行任务' },
-  { num: 4, title: '📊 记录', desc: 'StateMachine 更新状态' },
-  { num: 5, title: '🌙 休息', desc: '保存数据，等待下一轮' }
+  { num: 1, title: '注册', desc: '声明 Worker 类并注册进调度表' },
+  { num: 2, title: '派发', desc: '按 delay_time 派发；仍在执行的会被跳过' },
+  { num: 3, title: '执行', desc: '在线程或线程池中运行 _execute()' },
+  { num: 4, title: '结算', desc: '单一结算点：注销在飞、上报结果' },
+  { num: 5, title: '持久化', desc: '周期性落盘，停机时再存一次' }
 ]
 
 const animals = [
-  { key: 'lion', emoji: '🦁', name: '狮子', desc: '高优先级 Worker<br>凶猛、抢占资源' },
-  { key: 'monkey', emoji: '🐒', name: '猴子', desc: '普通 Worker<br>灵活、循环执行' },
-  { key: 'sloth', emoji: '🦥', name: '树懒', desc: '延迟 Worker<br>慢吞吞、定时任务' },
-  { key: 'eagle', emoji: '🦅', name: '老鹰', desc: '事件 Worker<br>敏锐、响应迅速' },
-  { key: 'elephant', emoji: '🐘', name: '大象', desc: '状态机 Worker<br>稳重、管理状态' }
+  { key: 'loop', emoji: '🔁', name: '循环任务', desc: 'is_loop: True<br>跨调度轮次持续运行' },
+  { key: 'once', emoji: '1️⃣', name: '单次任务', desc: 'is_loop: False<br>执行一次后不再派发' },
+  { key: 'event', emoji: '📨', name: '事件驱动', desc: '由事件触发<br>可设超时与重试策略' },
+  { key: 'state', emoji: '💾', name: '状态机驱动', desc: '状态变更时触发<br>状态可持久化恢复' },
+  { key: 'native', emoji: '🦀', name: '原生任务', desc: 'Rust 承载粗粒度 CPU 任务<br>（尚未发布）' }
 ]
 
 const quickSteps = [
-  { key: 'install', icon: '🎫', title: '买票安装', code: 'pip install zoo-framework' },
-  { key: 'create', icon: '🏗️', title: '搭建动物园', code: 'zfc --create my_zoo\ncd my_zoo' },
-  { key: 'lion', icon: '🦁', title: '养一只狮子', code: 'class LionWorker(BaseWorker):\n    def _execute(self):\n        print("吼！")' },
-  { key: 'run', icon: '🎪', title: '开园！', code: 'master = Master()\nmaster.run()' }
+  { key: 'install', icon: '📥', title: '安装', code: 'pip install zoo-framework' },
+  { key: 'create', icon: '🏗️', title: '创建项目', code: 'zfc --create my_app\ncd my_app' },
+  { key: 'worker', icon: '🧩', title: '写一个任务', code: 'class SyncWorker(BaseWorker):\n    def _execute(self):\n        sync_orders()' },
+  { key: 'run', icon: '▶️', title: '注册并运行', code: 'master = Master()\nmaster.register_worker("Sync", SyncWorker)\nmaster.run()' }
 ]
 
 const comparison = {
   old: {
-    code: 'import threading\nt = threading.Thread(target=func)\nt.start()\nt.join()',
-    caption: '枯燥的 Thread 管理 😴'
+    code: 'import threading\n\nt = threading.Thread(target=sync_orders)\nt.start()\n\n# 还要自己解决：\n#  · 上一轮没跑完怎么办\n#  · 卡住多久算超时\n#  · 停机时在飞的任务怎么办\n#  · 状态放哪里、怎么恢复\n#  · 出错为什么没人知道',
+    caption: '二十行起步，几百行收尾 —— 而且错法通常是静默的'
   },
   new: {
-    code: 'class LionWorker(BaseWorker):\n    def _execute(self):\n        print("🦁 吼！")',
-    caption: '有趣的动物园管理 🦁🎪'
+    code: 'class SyncWorker(BaseWorker):\n    def __init__(self):\n        super().__init__({\n            "is_loop": True,\n            "delay_time": 5,\n            "run_timeout": 30,\n        })\n\n    def _execute(self):\n        sync_orders()',
+    caption: '在飞去重、超时熔断、优雅停机、状态持久化由框架负责'
   }
 }
 
 const mapping = [
-  { key: 'm1', left: '🦁 动物', right: 'Worker 工作器' },
-  { key: 'm2', left: '🏠 笼子', right: 'Cage 线程管理' },
-  { key: 'm3', left: '👨‍💼 园长', right: 'Master 调度器' },
-  { key: 'm4', left: '🍖 食物', right: 'Event 事件' },
-  { key: 'm5', left: '📊 饲养员', right: 'FIFO 队列' },
-  { key: 'm6', left: '🗺️ 状态图', right: 'StateMachine' }
+  { key: 'm1', left: '要跑的任务', right: 'Worker 子类' },
+  { key: 'm2', left: '怎么调度', right: 'Master + Waiter（thread / thread_pool）' },
+  { key: 'm3', left: '任务之间怎么通信', right: 'Event 管道（通道隔离 + 优先级 + 重试）' },
+  { key: 'm4', left: '共享实例放哪', right: 'ScopedContainer（process / session / prototype）' },
+  { key: 'm5', left: '状态怎么活过重启', right: 'StateMachine（原子替换 + 滚动备份）' },
+  { key: 'm6', left: '出错时怎么办', right: '大声报错，不静默降级' }
 ]
 
 const guide = [
   {
     key: 'g1',
-    title: '🔰 新手入园',
+    title: '🔰 上手',
     items: [
-      { href: '/start/', text: '🎫 入园指南', desc: '5分钟上手' },
-      { href: '/start/new.html', text: '🏗️ 搭建动物园', desc: '创建项目' },
-      { href: '/guide/structure.html', text: '🗺️ 动物园布局', desc: '了解结构' }
+      { href: '/start/', text: '安装与上手', desc: '五分钟跑通' },
+      { href: '/start/new', text: '项目结构', desc: '脚手架产出什么' },
+      { href: '/guide/structure', text: '仓库布局', desc: '各目录的职责' }
     ]
   },
   {
     key: 'g2',
-    title: '🦁 认识动物',
+    title: '🧩 核心概念',
     items: [
-      { href: '/core/worker.html', text: '🦁 Worker 动物', desc: '动物特点' },
-      { href: '/core/cage.html', text: '🏠 Cage 笼子', desc: '动物的家' },
-      { href: '/core/event.html', text: '🍖 Event 食物', desc: '喂养系统' },
-      { href: '/core/statemachine.html', text: '🗺️ 状态图', desc: '心情变化' },
-      { href: '/core/fifo.html', text: '📊 FIFO 饲养员', desc: '分发机制' }
+      { href: '/core/worker', text: 'Worker 任务单元', desc: '生命周期与执行' },
+      { href: '/core/cage', text: 'ScopedContainer 容器', desc: '作用域与共享实例' },
+      { href: '/core/event', text: 'Event 事件管道', desc: '通道隔离与优先级' },
+      { href: '/core/statemachine', text: '🗺️ 状态图', desc: '心情变化' },
+      { href: '/core/fifo', text: 'FIFO 队列', desc: '按通道分发' }
     ]
   },
   {
     key: 'g3',
-    title: '🎪 高级驯兽',
+    title: '⚙️ 进阶',
     items: [
-      { href: '/advanced/aop.html', text: '✂️ AOP 驯兽', desc: '' },
-      { href: '/advanced/reactor.html', text: '⚡ Reactor 训练', desc: '' },
-      { href: '/advanced/lock.html', text: '🔒 Cage 安全', desc: '' },
-      { href: '/advanced/plugin.html', text: '🔌 引入新物种', desc: '' }
+      { href: '/advanced/aop', text: 'AOP 切面', desc: '' },
+      { href: '/advanced/reactor', text: '⚡ Reactor 训练', desc: '' },
+      { href: '/advanced/lock', text: '🔒 Cage 安全', desc: '' },
+      { href: '/advanced/plugin', text: '插件系统', desc: '' }
     ]
   }
 ]
@@ -266,7 +266,7 @@ const guide = [
   padding: 0 2rem;
 }
 
-/* 动物园理念区域 - 左侧概念 + 中间架构 + 右侧说明 */
+/* 定位与架构区域 - 左侧概念 + 中间架构 + 右侧说明 */
 .zoo-concept-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 16px;
@@ -436,7 +436,7 @@ const guide = [
   font-size: 0.8rem;
 }
 
-/* 动物类型卡片 */
+/* 任务类型卡片 */
 .animal-types-section {
   margin: 3rem 0;
 }

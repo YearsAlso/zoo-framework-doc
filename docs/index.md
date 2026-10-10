@@ -18,32 +18,41 @@ hero:
 
 features:
   - title: Worker — 任务执行单元
-    details: 每个任务是一只「动物」：循环执行、周期执行、事件驱动或状态机驱动，各按各的节拍工作
+    details: 循环执行、单次执行、事件驱动或状态机驱动，各按各的节拍；在飞的任务不会被并发派发两次
   - title: ScopedContainer — 作用域容器
     details: 进程 / 会话 / 原型三级作用域持有共享实例，声明式、可重置、可替换，且不再替换类本身
   - title: Master — 生命周期管理
-    details: 读取配置、注册 Worker、驱动调度主循环，并在 Ctrl-C 时按序优雅停机
+    details: 读取配置、注册 Worker、驱动调度主循环，并在 Ctrl-C 时按序优雅停机；停机时会触发最后一次状态落盘
   - title: Event — 事件管道
-    details: 事件经通道注册、FIFO 队列与反应器分发，携带优先级与响应机制，避免低优先级事件饿死
+    details: 通道隔离、优先级排序、重试策略与死信记录；重试耗尽的事件不会被静默丢弃
   - title: StateMachine — 状态持久化
-    details: StateScope 挂在可插拔的 StateIndex 上，周期落盘为带校验和与滚动备份的 pickle 存档
-  - title: Plugin — 插件系统
-    details: Plugin ABC 与依赖排序加载，配套固定 / 指数 / 自适应延迟策略
+    details: 按「作用域 + 键路径」读写，支持变更观察者；周期落盘、原子替换、保留最近 5 份备份
+  - title: 明确不做什么
+    details: 跨机器 → Celery；多进程未实现；cron 表达式不支持；健康监控指标链路尚未接通
 ---
 
 ## 定位
 
-Zoo Framework 是一个 Python 3.13+ 的多线程框架：你定义 Worker 类，框架负责注册、调度、参数解析、事件分发与停机。调度模型（线程池 / 每任务一线程）通过配置切换，Worker 代码不用改。
+Zoo Framework 让你在**自己的进程里**运行长期存活的后台任务：你定义一个 Worker 类，
+框架负责注册、调度、在飞去重、超时熔断、事件分发与优雅停机。调度模型
+（`thread` / `thread_pool`）通过配置切换，Worker 代码不用改。
 
-## 概念对照
+**不需要 broker，不需要 Redis，不需要 cron 守护进程。**
 
-| 动物园 | 框架 | 职责 |
-|---|---|---|
-| 动物 | `BaseWorker` | 任务执行单元 |
-| 笼子 | `ScopedContainer` | 作用域内的共享实例 |
-| 园长 | `Master` | 生命周期与调度 |
-| 食物 | `EventNode` | Worker 间消息 |
-| 饲养员队列 | FIFO / EventChannel | 有序事件队列 |
+## 核心组件
+
+| 组件 | 职责 |
+|---|---|
+| `BaseWorker` | 任务执行单元；你只实现 `_execute()` |
+| `Master` | 生命周期入口：加载配置、注册 Worker、启动调度、优雅停机 |
+| `core/waiter/` | 调度器；`worker:mode` 选择执行模型 |
+| `ScopedContainer` | 作用域容器（process / session / prototype），且**不替换类** |
+| `EventNode` / `EventChannel` | 进程内事件管道 |
+| `EventFIFO` | 每个通道一条独立队列 |
+| `StateMachineManager` | 按「作用域 + 键路径」读写状态并持久化 |
+
+> **关于命名**：框架名与部分历史标识使用动物园隐喻（`Worker` / `Master` / `Cage` / `Event`）。
+> **隐喻只影响命名，不影响语义** —— 上表以功能名为准。
 
 ## 快速上手
 
