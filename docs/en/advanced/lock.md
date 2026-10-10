@@ -10,4 +10,4 @@ Zoo Framework provides various thread lock implementations.
 
 ---
 
-*For detailed Chinese documentation, see [Lock 安全](/advanced/lock.html)*
+*For detailed Chinese documentation, see [Lock 安全](/en/advanced/lock)*

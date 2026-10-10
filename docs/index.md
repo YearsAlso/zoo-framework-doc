@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "Zoo Framework"
-  text: "Python 多线程框架"
-  tagline: 用动物园的比喻组织并发原语——Worker 是动物，Cage 是它们共享的作用域，Master 负责开园与闭园
+  text: "进程内任务编排框架"
+  tagline: 在你自己的进程里跑长期存活的后台任务——调度、可观测、有状态，不需要 broker，不需要 cron 守护进程
   image:
     src: /logo.png
     alt: Zoo Framework

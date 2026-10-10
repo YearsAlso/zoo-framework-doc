@@ -16,4 +16,4 @@
 
 ---
 
-*For detailed Chinese documentation, see [State 状态图](/core/statemachine.html)*
+*For detailed Chinese documentation, see [State 状态图](/en/core/statemachine)*

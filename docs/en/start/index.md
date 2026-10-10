@@ -310,10 +310,10 @@ graph LR
     G --> H
 ```
 
-1. [👷 Deep dive into Worker →](/en/core/worker.html)
-2. [📬 Learn Event System →](/en/core/event.html)
-3. [🔄 Master State Machine →](/en/core/statemachine.html)
-4. [📊 Understand FIFO →](/en/core/fifo.html)
+1. [👷 Deep dive into Worker →](/en/core/worker)
+2. [📬 Learn Event System →](/en/core/event)
+3. [🔄 Master State Machine →](/en/core/statemachine)
+4. [📊 Understand FIFO →](/en/core/fifo)
 
 ## ❓ FAQ
 
@@ -354,6 +354,6 @@ def __init__(self):
 You've completed your first Zoo Framework project! 🎊
 
 Continue exploring:
-- [📖 Core Concepts](/en/core/worker.html)
-- [🔧 Advanced Features](/en/advanced/aop.html)
-- [📚 API Reference](/en/api/core.html)
+- [📖 Core Concepts](/en/core/worker)
+- [🔧 Advanced Features](/en/advanced/aop)
+- [📚 API Reference](/en/api/core)

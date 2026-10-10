@@ -12,4 +12,4 @@ Zoo Framework supports plugin-based extensions (in development).
 
 ---
 
-*For detailed Chinese documentation, see [Plugin 新物种](/advanced/plugin.html)*
+*For detailed Chinese documentation, see [Plugin 新物种](/en/advanced/plugin)*

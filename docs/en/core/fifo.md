@@ -12,4 +12,4 @@
 
 ---
 
-*For detailed Chinese documentation, see [FIFO 饲养员](/core/fifo.html)*
+*For detailed Chinese documentation, see [FIFO 饲养员](/en/core/fifo)*

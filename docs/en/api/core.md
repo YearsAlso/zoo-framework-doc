@@ -60,4 +60,4 @@ sm.transfer("name", "from", "to")
 
 ---
 
-*For detailed Chinese documentation, see [核心 API](/api/core.html)*
+*For detailed Chinese documentation, see [核心 API](/en/api/core)*

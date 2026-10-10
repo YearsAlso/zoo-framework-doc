@@ -414,6 +414,6 @@ ParamsFactory(config_file)
 
 ## 📚 Next Steps
 
-- [👷 Deep dive into Worker →](/en/core/worker.html)
-- [📬 Learn Event System →](/en/core/event.html)
-- [🔄 Master State Machine →](/en/core/statemachine.html)
+- [👷 Deep dive into Worker →](/en/core/worker)
+- [📬 Learn Event System →](/en/core/event)
+- [🔄 Master State Machine →](/en/core/statemachine)

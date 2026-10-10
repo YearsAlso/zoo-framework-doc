@@ -18,4 +18,4 @@
 
 ---
 
-*For detailed Chinese documentation, see [Worker 动物们](/core/worker.html)*
+*For detailed Chinese documentation, see [Worker 动物们](/en/core/worker)*

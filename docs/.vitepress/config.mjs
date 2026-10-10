@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   base: '/zoo-framework-doc/',
   title: "Zoo Framework",
-  description: "Zoo Framework - 基于动物园隐喻的 Python 多线程框架",
+  description: "Zoo Framework —— 进程内任务编排：调度、可观测、有状态，不需要 broker，不需要 cron 守护进程",
 
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/zoo-framework-doc/logo.png' }]
@@ -29,15 +29,15 @@ export default defineConfig({
               text: '快速开始',
               collapsed: false,
               items: [
-                { text: '入园指南', link: '/start/' },
-                { text: '搭建动物园', link: '/start/new' },
+                { text: '安装与上手', link: '/start/' },
+                { text: '项目结构', link: '/start/new' },
               ]
             },
             {
               text: '基础指南',
               collapsed: false,
               items: [
-                { text: '动物园布局', link: '/guide/structure' },
+                { text: '项目结构', link: '/guide/structure' },
                 { text: '配置说明', link: '/guide/configuration' },
               ]
             },
@@ -47,15 +47,15 @@ export default defineConfig({
               text: '快速开始',
               collapsed: false,
               items: [
-                { text: '入园指南', link: '/start/' },
-                { text: '搭建动物园', link: '/start/new' },
+                { text: '安装与上手', link: '/start/' },
+                { text: '项目结构', link: '/start/new' },
               ]
             },
             {
               text: '基础指南',
               collapsed: false,
               items: [
-                { text: '动物园布局', link: '/guide/structure' },
+                { text: '项目结构', link: '/guide/structure' },
                 { text: '配置说明', link: '/guide/configuration' },
               ]
             },
@@ -65,32 +65,32 @@ export default defineConfig({
               text: '基础指南',
               collapsed: false,
               items: [
-                { text: '动物园布局', link: '/guide/structure' },
+                { text: '项目结构', link: '/guide/structure' },
                 { text: '配置说明', link: '/guide/configuration' },
               ]
             },
           ],
           '/core/': [
             {
-              text: '动物园核心',
+              text: '核心概念',
               collapsed: false,
               items: [
-                { text: 'Worker 动物', link: '/core/worker' },
-                { text: 'Cage 笼子', link: '/core/cage' },
-                { text: 'Event 食物', link: '/core/event' },
-                { text: 'State 状态图', link: '/core/statemachine' },
-                { text: 'FIFO 饲养员', link: '/core/fifo' },
-                { text: 'Waiter 调度', link: '/core/waiter' },
+                { text: 'Worker（任务单元）', link: '/core/worker' },
+                { text: '容器（ScopedContainer）', link: '/core/cage' },
+                { text: '事件管道', link: '/core/event' },
+                { text: '状态机', link: '/core/statemachine' },
+                { text: 'FIFO 队列', link: '/core/fifo' },
+                { text: '调度（Waiter）', link: '/core/waiter' },
               ]
             },
             {
               text: '高级特性',
               collapsed: false,
               items: [
-                { text: 'AOP 驯兽', link: '/advanced/aop' },
-                { text: 'Reactor 反应', link: '/advanced/reactor' },
-                { text: 'Lock 安全', link: '/advanced/lock' },
-                { text: 'Plugin 新物种', link: '/advanced/plugin' },
+                { text: 'AOP 切面', link: '/advanced/aop' },
+                { text: 'Reactor 响应器', link: '/advanced/reactor' },
+                { text: '锁与线程安全', link: '/advanced/lock' },
+                { text: '插件系统', link: '/advanced/plugin' },
               ]
             },
           ],
@@ -99,10 +99,10 @@ export default defineConfig({
               text: '高级特性',
               collapsed: false,
               items: [
-                { text: 'AOP 驯兽', link: '/advanced/aop' },
-                { text: 'Reactor 反应', link: '/advanced/reactor' },
-                { text: 'Lock 安全', link: '/advanced/lock' },
-                { text: 'Plugin 新物种', link: '/advanced/plugin' },
+                { text: 'AOP 切面', link: '/advanced/aop' },
+                { text: 'Reactor 响应器', link: '/advanced/reactor' },
+                { text: '锁与线程安全', link: '/advanced/lock' },
+                { text: '插件系统', link: '/advanced/plugin' },
               ]
             },
           ],
@@ -114,128 +114,6 @@ export default defineConfig({
                 { text: '核心 API', link: '/api/core' },
                 { text: '工具类', link: '/api/utils' },
                 { text: '常量定义', link: '/api/constant' },
-              ]
-            },
-          ],
-        },
-        outline: {
-          label: '页面导航'
-        },
-        docFooter: {
-          prev: '上一页',
-          next: '下一页'
-        },
-        lastUpdated: {
-          text: '最后更新于'
-        },
-        editLink: {
-          pattern: 'https://github.com/YearsAlso/zoo-framework-doc/edit/main/docs/:path',
-          text: '在 GitHub 上编辑此页'
-        },
-      }
-    },
-    zh: {
-      label: '简体中文',
-      lang: 'zh-CN',
-      link: '/zh/',
-      themeConfig: {
-        nav: [
-          { text: '首页', link: '/zh/' },
-          { text: '快速开始', link: '/zh/start/' },
-          { text: '核心概念', link: '/zh/core/worker' },
-          { text: 'API', link: '/zh/api/core' },
-        ],
-        sidebar: {
-          '/zh/': [
-            {
-              text: '快速开始',
-              collapsed: false,
-              items: [
-                { text: '入园指南', link: '/zh/start/' },
-                { text: '搭建动物园', link: '/zh/start/new' },
-              ]
-            },
-            {
-              text: '基础指南',
-              collapsed: false,
-              items: [
-                { text: '动物园布局', link: '/zh/guide/structure' },
-                { text: '配置说明', link: '/zh/guide/configuration' },
-              ]
-            },
-          ],
-          '/zh/start/': [
-            {
-              text: '快速开始',
-              collapsed: false,
-              items: [
-                { text: '入园指南', link: '/zh/start/' },
-                { text: '搭建动物园', link: '/zh/start/new' },
-              ]
-            },
-            {
-              text: '基础指南',
-              collapsed: false,
-              items: [
-                { text: '动物园布局', link: '/zh/guide/structure' },
-                { text: '配置说明', link: '/zh/guide/configuration' },
-              ]
-            },
-          ],
-          '/zh/guide/': [
-            {
-              text: '基础指南',
-              collapsed: false,
-              items: [
-                { text: '动物园布局', link: '/zh/guide/structure' },
-                { text: '配置说明', link: '/zh/guide/configuration' },
-              ]
-            },
-          ],
-          '/zh/core/': [
-            {
-              text: '动物园核心',
-              collapsed: false,
-              items: [
-                { text: 'Worker 动物', link: '/zh/core/worker' },
-                { text: 'Cage 笼子', link: '/zh/core/cage' },
-                { text: 'Event 食物', link: '/zh/core/event' },
-                { text: 'State 状态图', link: '/zh/core/statemachine' },
-                { text: 'FIFO 饲养员', link: '/zh/core/fifo' },
-                { text: 'Waiter 调度', link: '/zh/core/waiter' },
-              ]
-            },
-            {
-              text: '高级特性',
-              collapsed: false,
-              items: [
-                { text: 'AOP 驯兽', link: '/zh/advanced/aop' },
-                { text: 'Reactor 反应', link: '/zh/advanced/reactor' },
-                { text: 'Lock 安全', link: '/zh/advanced/lock' },
-                { text: 'Plugin 新物种', link: '/zh/advanced/plugin' },
-              ]
-            },
-          ],
-          '/zh/advanced/': [
-            {
-              text: '高级特性',
-              collapsed: false,
-              items: [
-                { text: 'AOP 驯兽', link: '/zh/advanced/aop' },
-                { text: 'Reactor 反应', link: '/zh/advanced/reactor' },
-                { text: 'Lock 安全', link: '/zh/advanced/lock' },
-                { text: 'Plugin 新物种', link: '/zh/advanced/plugin' },
-              ]
-            },
-          ],
-          '/zh/api/': [
-            {
-              text: 'API 参考',
-              collapsed: false,
-              items: [
-                { text: '核心 API', link: '/zh/api/core' },
-                { text: '工具类', link: '/zh/api/utils' },
-                { text: '常量定义', link: '/zh/api/constant' },
               ]
             },
           ],
@@ -316,12 +194,12 @@ export default defineConfig({
           ],
           '/en/core/': [
             {
-              text: 'Zoo Core',
+              text: 'Core Concepts',
               collapsed: false,
               items: [
-                { text: 'Worker Animals', link: '/en/core/worker' },
+                { text: 'Worker', link: '/en/core/worker' },
                 { text: 'Cage', link: '/en/core/cage' },
-                { text: 'Event Food', link: '/en/core/event' },
+                { text: 'Event Pipeline', link: '/en/core/event' },
                 { text: 'State Machine', link: '/en/core/statemachine' },
                 { text: 'FIFO Queue', link: '/en/core/fifo' },
                 { text: 'Waiter', link: '/en/core/waiter' },

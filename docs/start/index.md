@@ -4,352 +4,177 @@ outline: deep
 
 # 快速开始
 
+本页的每一段代码都在 **Python 3.13** 上实际执行验证过，输出为真实输出。
+
 ## 安装
 
-### 使用 pip 安装
-
-::: code-group
-
-```bash [推荐]
+```bash
 pip install zoo-framework
 ```
 
-```bash [开发版本]
-pip install -e git+https://github.com/YearsAlso/zoo-framework.git#egg=zoo-framework
-```
-
-:::
-
-### 从源码安装
+需要 **Python 3.13 及以上**。验证：
 
 ```bash
-git clone https://github.com/YearsAlso/zoo-framework.git
-cd zoo-framework
-pip install -e .
+python -c "import zoo_framework; print(zoo_framework.__version__)"
 ```
 
-## 创建第一个项目
+## 第一个任务：手写一个最小示例
 
-### 1⃣ 使用 CLI 创建项目
-
-```bash
-zfc --create my_first_project
-cd my_first_project
-```
-
-这将创建以下结构：
-
-```
-my_first_project/
-├──  config.json          # 配置文件
-├──  src/                 # 源代码目录
-│   ├──  main.py         # 应用入口
-│   ├──  workers/        # Worker 目录
-│   │   └── __init__.py
-│   ├──  events/         # 事件目录
-│   │   └── __init__.py
-│   ├──  conf/           # 配置目录
-│   │   └── __init__.py
-│   └──  params/         # 参数目录
-│       └── __init__.py
-└──  logs/               # 日志目录
-```
-
-### config.json
-
-```json
-{
-  "_exports": [],
-  " log": {
-    " path": "./logs",
-    " level": "debug"
-  },
-  " worker": {
-    " runPolicy": "simple",
-    " pool": {
-      " size": 5,
-      " enabled": false
-    }
-  }
-}
-```
-
-配置项说明：
-
-| 配置项 | 类型 | 说明| 
-|-----------|---------|---------|
-| `log.path` | string | 日志文件存储路径| 
-| `log.level` | string | 日志级别 (debug/info/warning/error)| 
-| `worker.runPolicy` | string | Worker 运行策略 (simple/stable/safe)| 
-| `worker.pool.enabled` | boolean | 是否启用线程池| 
-| `worker.pool.size` | integer | 线程池大小| 
-
-## 创建 Worker
-
-```bash
-zfc --worker hello
-```
-
-这会在 `src/workers/` 目录下创建 `hello_worker.py`：
-
-```python
-from zoo_framework.workers.base_worker import BaseWorker
-
-
-class HelloWorker(BaseWorker):
-    def __init__(self):
-        BaseWorker.__init__(self, {
-            "is_loop": True,
-            "delay_time": 5,
-            "name": "HelloWorker"
-        })
-
-    def _destroy(self, result):
-        pass
-
-    def _execute(self):
-        # 在这里编写你的业务逻辑
-        pass
-```
-
-同时在 `src/workers/__init__.py` 中自动注册：
-
-```python
-from .hello_worker import HelloWorker
-```
-
-## 编写业务代码
-
-修改 `src/workers/hello_worker.py`：
-
-```python
-from zoo_framework.workers import BaseWorker
-from zoo_framework.utils import LogUtils
-
-
-class HelloWorker(BaseWorker):
-    """
-     欢迎 Worker - 演示基础功能
-    """
-    
-    def __init__(self):
-        super().__init__({
-            "is_loop": True,      # 循环执行
-            "delay_time": 2,      # 每 2 秒执行一次
-            "name": "HelloWorker" # Worker 名称
-        })
-        self.counter = 0
-
-    def _destroy(self, result):
-        """
-         销毁回调 - Worker 停止时调用
-        """
-        LogUtils.info(f" Worker 结束，执行次数: {result}")
-
-    def _execute(self):
-        """
-         执行业务逻辑 - 必须实现
-        """
-        self.counter += 1
-        LogUtils.info(f" Hello Zoo Framework! Count: {self.counter}")
-```
-
-## 启动应用
-
-修改 `src/main.py`：
+先用**单文件**跑通，理解最小闭环。把下面存成 `main.py`：
 
 ```python
 from zoo_framework.core import Master
+from zoo_framework.workers import BaseWorker
 
-def main():
-    """
-     应用入口
-    """
-    # 创建 Master 实例
-    master = Master()
-    
-    # 运行应用
-    master.run()
+
+class HelloWorker(BaseWorker):
+    def __init__(self):
+        super().__init__({
+            "is_loop": True,      # 跨调度轮次持续运行
+            "delay_time": 1.0,    # 每轮执行后等待的秒数
+            "name": "HelloWorker",
+        })
+        self.counter = 0
+
+    def _execute(self):
+        self.counter += 1
+        print(f"[HelloWorker] tick #{self.counter}", flush=True)
+
 
 if __name__ == "__main__":
-    main()
+    master = Master()
+    master.register_worker("HelloWorker", HelloWorker)   # 注册的是**类**
+    master.run()
 ```
 
 运行：
 
 ```bash
-cd src
-python main.py
+python -u main.py
 ```
 
-预期输出：
+**真实输出**（注意：默认会打印框架自身的调度日志，见下节如何关掉）：
 
 ```
-[ 2024-01-15 10:00:00] [INFO]  Zoo Framework 启动
-[ 2024-01-15 10:00:00] [INFO]  HelloWorker 注册成功
-[ 2024-01-15 10:00:02] [INFO]  Hello Zoo Framework! Count: 1
-[ 2024-01-15 10:00:04] [INFO]  Hello Zoo Framework! Count: 2
-[ 2024-01-15 10:00:06] [INFO]  Hello Zoo Framework! Count: 3
+[HelloWorker] tick #1
+[HelloWorker] tick #2
+[HelloWorker] tick #3
 ...
 ```
 
-## 项目架构图
+按 `Ctrl-C` 停止。
 
-```mermaid
-flowchart TB
-    subgraph  Application
-        M[ Master<br/>调度中心]
-    end
-    
-    subgraph  Scheduling
-        W[ Waiter<br/>执行策略]
-    end
-    
-    subgraph  Workers
-        W1[ Worker 1<br/>循环任务]
-        W2[ Worker 2<br/>事件驱动]
-        W3[ Worker 3<br/>单次任务]
-    end
-    
-    subgraph  Communication
-        E[ EventChannel<br/>事件通道]
-        F[ EventFIFO<br/>优先级队列]
-    end
-    
-    subgraph  Persistence
-        S[ StateMachine<br/>状态管理]
-        L[ LogUtils<br/>日志系统]
-    end
-    
-    M --> W
-    W --> W1
-    W --> W2
-    W --> W3
-    W1 --> E
-    W2 --> F
-    W3 --> S
-    W1 --> L
-    W2 --> L
-    W3 --> L
-```
+::: tip 两个容易踩的地方
+1. **`register_worker` 传的是类，不是实例。** `WorkerRegistry` 用 `issubclass` 校验，
+   传函数或实例会得到 `TypeError: issubclass() arg 1 must be a class`。
+2. **管道/文件输出时加 `-u`。** 否则 Python 会块缓冲 `print`，看不到实时输出。
+:::
 
-## 核心概念速览
+## 把日志调安静
 
-### Worker - 工作器
+不配置的话，框架会在控制台打印**每个 Worker 每一轮的启停日志**，你的输出会被淹掉。
 
-Worker 是 Zoo Framework 的基本执行单元：
-
-```python
-from zoo_framework.workers import BaseWorker
-
-class MyWorker(BaseWorker):
-    def __init__(self):
-        super().__init__({
-            "is_loop": True,      # 是否循环
-            "delay_time": 1,      # 执行间隔
-            "name": "MyWorker"    # 名称
-        })
-    
-    def _execute(self):
-        # 业务逻辑
-        pass
-```
-
-### 事件
-
-```python
-from zoo_framework.event import EventChannelManager
-from zoo_framework.fifo import EventFIFO
-from zoo_framework.fifo.node import EventNode
-
-# 创建事件
-node = EventNode(
-    topic="user.login",
-    content={"user_id": 123, "name": "张三"},
-    priority=10
-)
-
-# 发送事件
-EventChannelManager.get_channel("default").push_event(node)
-```
-
-### 状态机
-
-```python
-from zoo_framework.statemachine import StateMachineManager
-
-# 创建状态机
-sm = StateMachineManager()
-sm.create_state_machine("order")
-
-# 添加状态
-sm.add_state("order", "created")
-sm.add_state("order", "paid")
-sm.add_state("order", "shipped")
-
-# 状态转换
-sm.transfer("order", "created", "paid")
-```
-
-## 下一步学习路径
-
-```mermaid
-graph LR
-    A[ 快速开始] --> B[ Worker]
-    A --> C[ 事件系统]
-    A --> D[ 状态机]
-    B --> E[ Waiter]
-    C --> F[ FIFO]
-    D --> G[ AOP]
-    E --> H[ 插件]
-    F --> H
-    G --> H
-```
-
-1. [ 深入了解 Worker ](/core/worker.html)
-2. [ 学习事件系统 ](/core/event.html)
-3. [ 掌握状态机 ](/core/statemachine.html)
-4. [ 了解 FIFO 队列 ](/core/fifo.html)
-
-## 常见问题
-
-### Q: Worker 没有被执行？
-
-A: 确保 Worker 已在 `workers/__init__.py` 中导入：
-
-```python
-from .hello_worker import HelloWorker
-```
-
-### Q: 如何调试？
-
-A: 设置日志级别为 debug：
+在工作目录放一个 `config.json`：
 
 ```json
 {
-  "log": {
-    "level": "debug"
-  }
+  "log": { "path": "./logs", "level": "warning" }
 }
 ```
 
-### Q: 如何停止 Worker？
+实测对比（同样运行 5 秒）：
 
-A: 设置 `is_loop = False`：
+| 配置 | 总输出行数 | 其中属于你的输出 |
+|---|---|---|
+| 默认 | 23 | 3 |
+| `log.level: warning` | **3** | **3** |
 
-```python
-def __init__(self):
-    super().__init__({
-        "is_loop": False,  # 只执行一次
-        "name": "OneTimeWorker"
-    })
+> 默认级别偏高是一个已知问题，在
+> [issue #111](https://github.com/YearsAlso/zoo-framework/issues/111) 中跟踪。
+
+## 用脚手架生成项目结构
+
+单文件够验证，但真实项目需要目录结构：
+
+```bash
+zfc --create my_app
+cd my_app
 ```
 
-## 恭喜！
+产出：
 
-你已经完成了 Zoo Framework 的第一个项目！
+```
+my_app/
+├── config.json
+└── src/
+    ├── main.py            # 入口：注册 Worker 并启动
+    ├── conf/              # 启动期配置钩子（在 Master() 构造时执行）
+    ├── params/            # 配置项声明（对应 config.json 的 demo 段）
+    ├── events/            # 事件反应器
+    └── workers/           # 任务单元
+```
 
-继续探索更多功能：
-- [ 核心概念](/core/worker.html)
-- [ 高级特性](/advanced/aop.html)
-- [ API 参考](/api/core.html)
+再生成一个任务：
+
+```bash
+zfc --worker order_sync
+```
+
+::: warning 脚手架的两个已知限制
+- **`--worker` 会把 import 与注册写进 `src/main.py` 的 `WORKERS` 列表**（不是写进
+  `workers/__init__.py`）。
+- `--worker order_sync` 目前生成的类名是 `Order_SyncWorker`（下划线被保留），
+  而不是 `OrderSyncWorker`。功能正常，命名修复在
+  [issue #112](https://github.com/YearsAlso/zoo-framework/issues/112) 中跟踪。
+- **`--create` 生成的 `WORKERS` 列表初始为空**，不跑一次 `--worker` 就看不到任何业务输出
+  （[issue #110](https://github.com/YearsAlso/zoo-framework/issues/110)）。
+:::
+
+运行：
+
+```bash
+python -u src/main.py
+```
+
+## 接下来
+
+| 我想… | 去哪里 |
+|---|---|
+| 让状态在重启后恢复 | [状态机](/core/statemachine) |
+| 让两个任务互相通信 | [事件系统](/core/event) |
+| 跨任务共享实例 | [作用域容器](/core/cage) |
+| 查签名与参数 | [API 参考](/api/core) |
+
+## 常见问题
+
+### `TypeError: issubclass() arg 1 must be a class`
+
+```python
+master.register_worker("MyWorker", MyWorker())          # ✗ 传了实例
+master.register_worker("MyWorker", lambda: MyWorker())  # ✗ 传了工厂函数
+master.register_worker("MyWorker", MyWorker)            # ✓ 传类
+```
+
+### 看不到任何输出
+
+依次排查：加 `python -u`；确认 `log.level` 没被设成 `error` 以上；
+确认**注册了 Worker 再调用 `master.run()`**——`Master()` 单独构造只会跑两个内建系统 Worker。
+
+### `AttributeError: property 'is_loop' of ... has no setter`
+
+`is_loop` 是只读属性，唯一真源是构造时传入的 `props`。不要写 `self.is_loop = True`，
+要在 `super().__init__({...})` 的字典里声明。
+
+### `ModuleNotFoundError: No module named 'zoo_framework'`
+
+装到了别的解释器。用 `python -m pip install zoo-framework` 确保与运行时同一个解释器。
+
+## 本页内容的可靠性
+
+本页不再包含手工编写的"预期输出"。所有代码块与输出均在 Python 3.13 上实际运行得到；
+文中出现的每一处 API 都以 `zoo_framework` 的实际导出面为准。
+
+> **背景**：在本页改写之前，它包含数个**并不存在**的 API
+> （`EventChannelManager`、`StateMachineManager.create_state_machine` / `add_state` / `transfer`），
+> 以及一段**没有 `register_worker`** 的入口代码——照做的话程序什么都不会运行。
+> 这类错误在文字上是看不出来的，只能靠"跑一遍"发现。

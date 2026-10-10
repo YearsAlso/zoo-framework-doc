@@ -18,4 +18,4 @@
 
 ---
 
-*For detailed Chinese documentation, see [Cage 笼子](/core/cage.html)*
+*For detailed Chinese documentation, see [Cage 笼子](/en/core/cage)*

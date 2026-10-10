@@ -16,4 +16,4 @@
 
 ---
 
-*For detailed Chinese documentation, see [Event 食物](/core/event.html)*
+*For detailed Chinese documentation, see [Event 食物](/en/core/event)*

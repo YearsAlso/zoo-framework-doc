@@ -40,4 +40,4 @@ CmdUtils.execute(command)
 
 ---
 
-*For detailed Chinese documentation, see [工具类](/api/utils.html)*
+*For detailed Chinese documentation, see [工具类](/en/api/utils)*

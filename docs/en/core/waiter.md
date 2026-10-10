@@ -10,4 +10,4 @@
 
 ---
 
-*For detailed Chinese documentation, see [Waiter 调度](/core/waiter.html)*
+*For detailed Chinese documentation, see [Waiter 调度](/en/core/waiter)*

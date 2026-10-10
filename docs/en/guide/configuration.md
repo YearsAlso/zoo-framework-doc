@@ -59,4 +59,4 @@ Main configuration file in project root.
 
 ---
 
-*For detailed Chinese documentation, see [配置说明](/guide/configuration.html)*
+*For detailed Chinese documentation, see [配置说明](/en/guide/configuration)*

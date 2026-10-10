@@ -44,4 +44,4 @@ Directory for parameter classes.
 
 ---
 
-*For detailed Chinese documentation, see [动物园布局](/guide/structure.html)*
+*For detailed Chinese documentation, see [动物园布局](/en/guide/structure)*

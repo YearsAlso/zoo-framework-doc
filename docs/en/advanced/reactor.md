@@ -12,4 +12,4 @@ Reactor is the core component for event handling.
 
 ---
 
-*For detailed Chinese documentation, see [Reactor 反应](/advanced/reactor.html)*
+*For detailed Chinese documentation, see [Reactor 反应](/en/advanced/reactor)*

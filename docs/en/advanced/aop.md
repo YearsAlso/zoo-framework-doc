@@ -8,4 +8,4 @@ Zoo Framework supports Aspect-Oriented Programming (AOP).
 
 ---
 
-*For detailed Chinese documentation, see [AOP 驯兽](/advanced/aop.html)*
+*For detailed Chinese documentation, see [AOP 驯兽](/en/advanced/aop)*

@@ -21,4 +21,4 @@ WaiterConstant.SAFE_POLICY
 
 ---
 
-*For detailed Chinese documentation, see [常量定义](/api/constant.html)*
+*For detailed Chinese documentation, see [常量定义](/en/api/constant)*

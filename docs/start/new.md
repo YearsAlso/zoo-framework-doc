@@ -414,6 +414,6 @@ ParamsFactory(config_file)
 
 ## 下一步
 
-- [ 深入了解 Worker ](/core/worker.html)
-- [ 学习事件系统 ](/core/event.html)
-- [ 掌握状态机 ](/core/statemachine.html)
+- [ 深入了解 Worker ](/core/worker)
+- [ 学习事件系统 ](/core/event)
+- [ 掌握状态机 ](/core/statemachine)
