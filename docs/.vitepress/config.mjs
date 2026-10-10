@@ -39,6 +39,7 @@ export default defineConfig({
           text: '基础指南',
           collapsed: false,
           items: [
+            { text: '概览', link: '/guide/overview' },
             { text: '仓库布局', link: '/guide/structure' },
             { text: '配置说明', link: '/guide/configuration' },
           ]
@@ -115,6 +116,7 @@ export default defineConfig({
           text: 'Guide',
           collapsed: false,
           items: [
+            { text: 'Overview', link: '/en/guide/overview' },
             { text: 'Repository Layout', link: '/en/guide/structure' },
             { text: 'Configuration', link: '/en/guide/configuration' },
           ]
