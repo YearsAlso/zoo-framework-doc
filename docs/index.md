@@ -5,8 +5,12 @@ hero:
   name: "Zoo Framework"
   text: "进程内任务编排框架"
   tagline: 在你自己的进程里跑长期存活的后台任务——调度、可观测、有状态，不需要 broker，不需要 cron 守护进程
+  # hero 的图位应当放**图形**，不能放已含字标的锁定图——
+  # 否则 H1 的 name 文字与图上的 "zoo framework" 会在同一屏出现两次。
+  # 这里用小尺寸变体：实底方块 + 三条，是唯一在深浅两种主题下都保持对比度的版本
+  # （环版 mark.svg 是深靛蓝，在深色主题下几乎不可见）。
   image:
-    src: /logo.png
+    src: /favicon.svg
     alt: Zoo Framework
   actions:
     - theme: brand
